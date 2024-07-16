@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:savings_fund_planner/navigationbar.dart';
 
 class MainPageWithItems extends StatelessWidget {
 const MainPageWithItems({ super.key });
@@ -13,8 +15,14 @@ const MainPageWithItems({ super.key });
         title: Text('Planner', style: theme.textTheme.labelLarge,),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+            Text('In process'),
+            Text('Competed')
+          ],),
           Container(
             alignment: Alignment.center,
             height: 148,
@@ -31,8 +39,15 @@ const MainPageWithItems({ super.key });
             'Click the button below to create one',
             style: theme.textTheme.labelSmall,
           ),
+          ElevatedButton(
+                onPressed: () => context.go('/'),
+                child: Text(
+                  'CREATE YOUR FIRST GOAL',
+                  style: theme.textTheme.labelSmall,
+                ))
         ],
       ),
-    );
+      bottomNavigationBar: const MyNavigationBar(indicatorColor:  Color.fromARGB(255, 50, 82, 249), destinations: [], backgroundColor: Colors.white));
+  
   }
 }

@@ -5,4 +5,5 @@ final theme = ThemeData(
       labelLarge: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
   labelSmall: TextStyle(fontSize: 15),
   bodyMedium: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+  bodySmall: TextStyle(fontSize: 15, color: Colors.white),
 ));
