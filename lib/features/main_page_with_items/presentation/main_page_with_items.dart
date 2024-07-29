@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:savings_fund_planner/core/widgets/navigationbar.dart';
+import 'package:savings_fund_planner/core/theme/theme.dart';
 
 class MainPageWithItems extends StatelessWidget {
   const MainPageWithItems({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: theme.colorScheme.primary,
         appBar: AppBar(
+          backgroundColor: theme.colorScheme.primary,
           centerTitle: true,
           title: Text(
             'Planner',
@@ -46,10 +47,6 @@ class MainPageWithItems extends StatelessWidget {
                   style: theme.textTheme.labelSmall,
                 ))
           ],
-        ),
-        bottomNavigationBar: const MyNavigationBar(
-            indicatorColor: Color.fromARGB(255, 50, 82, 249),
-            destinations: [],
-            backgroundColor: Colors.white));
+        ),);
   }
 }
