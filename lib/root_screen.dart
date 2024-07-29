@@ -22,7 +22,29 @@ class RootScreen extends StatelessWidget {
             borderRadius: const Radius.circular(45),
             selectedColor: theme.colorScheme.secondary,
             backgroundColor: theme.colorScheme.primary,
-            items: _buildBottomNavBarItems,
+            items: [
+              CustomNavigationBarItem(
+                icon: const Icon(Icons.book_rounded),
+                title: Text(
+                  'Planner',
+                  style: theme.textTheme.labelSmall,
+                ),
+              ),
+              CustomNavigationBarItem(
+                icon: const Icon(Icons.question_mark_rounded),
+                title: Text(
+                  'Helper',
+                  style: theme.textTheme.labelSmall,
+                ),
+              ),
+              CustomNavigationBarItem(
+                icon: const Icon(Icons.settings),
+                title: Text(
+                  'Settings',
+                  style: theme.textTheme.labelSmall,
+                ),
+              ),
+            ],
             currentIndex: navigationShell.currentIndex,
             onTap: (index) => navigationShell.goBranch(
               index,
@@ -31,28 +53,4 @@ class RootScreen extends StatelessWidget {
           ),
         ));
   }
-
-  List<CustomNavigationBarItem> get _buildBottomNavBarItems => [
-        CustomNavigationBarItem(
-          icon: const Icon(Icons.book_rounded),
-          title: Text(
-            'Planner',
-            style: theme.textTheme.labelSmall,
-          ),
-        ),
-        CustomNavigationBarItem(
-          icon: const Icon(Icons.question_mark_rounded),
-          title: Text(
-            'Helper',
-            style: theme.textTheme.labelSmall,
-          ),
-        ),
-        CustomNavigationBarItem(
-          icon: const Icon(Icons.settings),
-          title: Text(
-            'Settings',
-            style: theme.textTheme.labelSmall,
-          ),
-        ),
-      ];
 }
