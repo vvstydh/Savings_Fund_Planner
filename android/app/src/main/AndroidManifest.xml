@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="savings_fund_planner"
+        android:label="Fund planner"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

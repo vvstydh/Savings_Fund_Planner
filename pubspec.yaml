@@ -27,3 +27,11 @@ flutter:
 
   assets:
     - assets/images/list_is_empty.png
+    - assets/icon.png
+
+flutter_launcher_icons:
+  android:
+    adaptive_icon_background: "#0d0d0d"
+  ios: true
+  image_path: "assets/icon.png"
+  min_sdk_android: 21

@@ -7,6 +7,14 @@ class Helper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: theme.colorScheme.primary,
+        centerTitle: true,
+        title: Text(
+          'Helper',
+          style: theme.textTheme.labelLarge,
+        ),
+      ),
       backgroundColor: theme.colorScheme.primary,
     );
   }
