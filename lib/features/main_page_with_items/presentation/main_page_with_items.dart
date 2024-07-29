@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 
 class MainPageWithItems extends StatelessWidget {
@@ -52,7 +51,7 @@ class MainPageWithItems extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.colorScheme.secondary,
                           ),
-                          onPressed: () => context.go('/'),
+                          onPressed: () {},
                           child: Text(
                             'ADD NEW CARD',
                             style: theme.textTheme.bodySmall,

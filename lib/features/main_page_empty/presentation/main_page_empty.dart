@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 
 class MainPageEmpty extends StatelessWidget {
