@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:savings_fund_planner/navigationbar.dart';
+import 'package:savings_fund_planner/core/widgets/navigationbar.dart';
 import 'package:go_router/go_router.dart';
 
 class MainPageEmpty extends StatelessWidget {
- 
   const MainPageEmpty({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
     final theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
@@ -38,14 +36,19 @@ class MainPageEmpty extends StatelessWidget {
               style: theme.textTheme.labelSmall,
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 50, 82, 249),),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 50, 82, 249),
+                ),
                 onPressed: () => context.go('/withItems'),
                 child: Text(
                   'CREATE YOUR FIRST GOAL',
                   style: theme.textTheme.bodySmall,
-                ))
+                )),
           ],
         ),
-        bottomNavigationBar: const MyNavigationBar(indicatorColor:  Color.fromARGB(255, 50, 82, 249), destinations: [], backgroundColor: Colors.white));
+        bottomNavigationBar: const MyNavigationBar(
+            indicatorColor: Color.fromARGB(255, 50, 82, 249),
+            destinations: [],
+            backgroundColor: Colors.white));
   }
 }

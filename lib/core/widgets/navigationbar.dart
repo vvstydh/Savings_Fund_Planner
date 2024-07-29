@@ -7,6 +7,7 @@ class MyNavigationBar extends StatelessWidget {
       required Color indicatorColor,
       required List<NavigationDestination> destinations,
       required Color backgroundColor});
+
   @override
   Widget build(BuildContext context) {
     int currentPageIndex = 0;
@@ -33,7 +34,7 @@ class MyNavigationBar extends StatelessWidget {
                 icon: IconButton(
                     onPressed: () => context.go('/'),
                     icon: const Icon(Icons.book_rounded)),
-                label: "Planner",
+                label: 'Planner',
               ),
               NavigationDestination(
                   icon: IconButton(
