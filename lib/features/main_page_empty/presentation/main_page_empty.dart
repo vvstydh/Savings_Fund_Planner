@@ -36,15 +36,19 @@ class MainPageEmpty extends StatelessWidget {
             'Click the button below to create a new one',
             style: theme.textTheme.labelSmall,
           ),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor:theme.colorScheme.secondary,
-              ),
-              onPressed: () => context.go('/withItems'),
-              child: Text(
-                'CREATE YOUR FIRST GOAL',
-                style: theme.textTheme.bodySmall,
-              )),
+          SizedBox(
+            height: 50,
+            width: 280,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.colorScheme.secondary,
+                ),
+                onPressed: () => context.go('/withItems'),
+                child: Text(
+                  'CREATE YOUR FIRST GOAL',
+                  style: theme.textTheme.bodySmall,
+                )),
+          )
         ],
       ),
     );

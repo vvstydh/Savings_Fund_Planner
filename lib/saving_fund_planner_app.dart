@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/features/helper/presentation/helper.dart';
 import 'package:savings_fund_planner/features/main_page_empty/presentation/main_page_empty.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
+import 'package:savings_fund_planner/features/main_page_with_items/presentation/main_page_with_items.dart';
 import 'package:savings_fund_planner/features/settings/presentation/settings.dart';
 import 'package:savings_fund_planner/root_screen.dart';
 

@@ -8,7 +8,7 @@ class MainPageWithItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.colorScheme.primary,
+        backgroundColor: theme.colorScheme.primary,
         appBar: AppBar(
           backgroundColor: theme.colorScheme.primary,
           centerTitle: true,
@@ -24,29 +24,43 @@ class MainPageWithItems extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [Text('In process'), Text('Competed')],
             ),
-            Container(
-              alignment: Alignment.center,
-              height: 148,
-              child: Image.asset(
-                'assets/images/list_is_empty.png',
-                fit: BoxFit.fill,
+            SizedBox(
+              height: 600,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: 148,
+                    child: Image.asset(
+                      'assets/images/list_is_empty.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Text(
+                    'You dont have any in process cards',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  Text(
+                    'Click the button below to create one',
+                    style: theme.textTheme.labelSmall,
+                  ),
+                  SizedBox(
+                      height: 50,
+                      width: 280,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.colorScheme.secondary,
+                          ),
+                          onPressed: () => context.go('/'),
+                          child: Text(
+                            'ADD NEW CARD',
+                            style: theme.textTheme.bodySmall,
+                          )))
+                ],
               ),
-            ),
-            Text(
-              'You dont have any in process cards',
-              style: theme.textTheme.bodyMedium,
-            ),
-            Text(
-              'Click the button below to create one',
-              style: theme.textTheme.labelSmall,
-            ),
-            ElevatedButton(
-                onPressed: () => context.go('/'),
-                child: Text(
-                  'CREATE YOUR FIRST GOAL',
-                  style: theme.textTheme.labelSmall,
-                ))
+            )
           ],
-        ),);
+        ));
   }
 }
