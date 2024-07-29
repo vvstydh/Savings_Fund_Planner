@@ -43,7 +43,7 @@ class MainPageEmpty extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colorScheme.secondary,
                 ),
-                onPressed: () => context.go('/withItems'),
+                onPressed: () {},
                 child: Text(
                   'CREATE YOUR FIRST GOAL',
                   style: theme.textTheme.bodySmall,
