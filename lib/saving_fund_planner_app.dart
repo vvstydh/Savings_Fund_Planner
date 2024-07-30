@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = GoRouter(
-      initialLocation: '/',
+      initialLocation: '/helper',
       routes: [
         StatefulShellRoute.indexedStack(
             builder: (context, state, navigationShell) =>

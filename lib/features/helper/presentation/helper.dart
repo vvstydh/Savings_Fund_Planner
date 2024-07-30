@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/features/helper/presentation/advice_widget.dart';
-import 'package:savings_fund_planner/features/helper/presentation/helper_mobx.dart';
 
 class Helper extends StatelessWidget {
   const Helper({super.key});
@@ -35,6 +34,7 @@ class Helper extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
+          surfaceTintColor: theme.colorScheme.primary,
           backgroundColor: theme.colorScheme.primary,
           centerTitle: true,
           title: Text(
@@ -46,11 +46,7 @@ class Helper extends StatelessWidget {
         body: ListView.builder(
             itemCount: titles.length,
             itemBuilder: (context, index) {
-              return AdviceWidget(
-                  title: titles[index],
-                  titleText: titlesText[index],
-                  index: index,
-                  functions: HelperMobX());
+              return AdviceWidget(title: titles[index], titleText: titlesText[index], index: index);
             }));
   }
 }

@@ -11,6 +11,7 @@ class RootScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
         body: navigationShell,
         bottomNavigationBar: Container(
           margin: const EdgeInsets.only(bottom: 30),
