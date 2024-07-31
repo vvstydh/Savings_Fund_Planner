@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:savings_fund_planner/features/helper/presentation/helper.dart';
+import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/goal_addition.dart';
+import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/savings_addition.dart';
+import 'package:savings_fund_planner/features/helper/presentation/pages/helper.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
-import 'package:savings_fund_planner/features/main_page_empty/presentation/main_page_empty.dart';
-import 'package:savings_fund_planner/features/settings/presentation/settings.dart';
-import 'package:savings_fund_planner/root_screen.dart';
+import 'package:savings_fund_planner/features/main_page/presentation/pages/main_page_empty.dart';
+import 'package:savings_fund_planner/features/settings/presentation/pages/settings.dart';
+import 'package:savings_fund_planner/core/app/root_screen.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -12,8 +14,16 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = GoRouter(
-      initialLocation: '/helper',
+      initialLocation: '/cardAdditionSavings',
       routes: [
+        GoRoute(
+          path: '/cardAdditionGoal',
+          builder: (context, state) => const GoalAddition(),
+        ),
+        GoRoute(
+          path: '/cardAdditionSavings',
+          builder: (context, state) => const SavingsAddition(),
+        ),
         StatefulShellRoute.indexedStack(
             builder: (context, state, navigationShell) =>
                 RootScreen(navigationShell: navigationShell),
@@ -22,6 +32,7 @@ class MainApp extends StatelessWidget {
                 routes: [
                   GoRoute(
                     path: '/',
+                    
                     builder: (context, state) => const MainPageEmpty(),
                   ),
                 ],

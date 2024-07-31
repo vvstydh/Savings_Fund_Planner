@@ -11,7 +11,7 @@ class RootScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
+        extendBody: true,
         body: navigationShell,
         bottomNavigationBar: Container(
           margin: const EdgeInsets.only(bottom: 30),
@@ -24,10 +24,14 @@ class RootScreen extends StatelessWidget {
             backgroundColor: theme.colorScheme.primary,
             items: [
               CustomNavigationBarItem(
-                icon: const Icon(Icons.book_rounded),
+                icon: const Icon(Icons.book_rounded,),
                 title: Text(
                   'Planner',
                   style: theme.textTheme.labelSmall,
+                ),
+                selectedTitle: Text(
+                  'Planner',
+                  style: theme.textTheme.titleMedium,
                 ),
               ),
               CustomNavigationBarItem(
@@ -36,12 +40,20 @@ class RootScreen extends StatelessWidget {
                   'Helper',
                   style: theme.textTheme.labelSmall,
                 ),
+                selectedTitle: Text(
+                  'Helper',
+                  style: theme.textTheme.titleMedium,
+                ),
               ),
               CustomNavigationBarItem(
                 icon: const Icon(Icons.settings),
                 title: Text(
                   'Settings',
                   style: theme.textTheme.labelSmall,
+                ),
+                selectedTitle: Text(
+                  'Settings',
+                  style: theme.textTheme.titleMedium,
                 ),
               ),
             ],

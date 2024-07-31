@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
+import 'package:savings_fund_planner/core/widgets/appbar.dart';
 
 class MainPageWithItems extends StatelessWidget {
   const MainPageWithItems({super.key});
@@ -8,14 +9,7 @@ class MainPageWithItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: theme.colorScheme.primary,
-        appBar: AppBar(
-          backgroundColor: theme.colorScheme.primary,
-          centerTitle: true,
-          title: Text(
-            'Planner',
-            style: theme.textTheme.labelLarge,
-          ),
-        ),
+        appBar: const Appbar(appBarText: 'Planner', height: 40,),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

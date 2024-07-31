@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
-import 'package:savings_fund_planner/features/helper/presentation/advice_widget.dart';
+import 'package:savings_fund_planner/core/widgets/appbar.dart';
+import 'package:savings_fund_planner/features/helper/presentation/widgets/advice_widget.dart';
 
 class Helper extends StatelessWidget {
   const Helper({super.key});
@@ -33,15 +34,7 @@ class Helper extends StatelessWidget {
     ];
 
     return Scaffold(
-        appBar: AppBar(
-          surfaceTintColor: theme.colorScheme.primary,
-          backgroundColor: theme.colorScheme.primary,
-          centerTitle: true,
-          title: Text(
-            'Helper',
-            style: theme.textTheme.labelLarge,
-          ),
-        ),
+        appBar: const Appbar(appBarText: 'Helper', height: 40,),
         backgroundColor: theme.colorScheme.primary,
         body: ListView.builder(
             itemCount: titles.length,
