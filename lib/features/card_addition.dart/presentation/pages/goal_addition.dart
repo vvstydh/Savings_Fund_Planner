@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/store/card_data.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/appbar_for_card_addition.dart';
+import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/next_button.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/progress_panel.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 
 class GoalAddition extends StatelessWidget {
-  const GoalAddition({super.key});
+  const GoalAddition({super.key, required this.cardStore});
+  final CardData cardStore;
 
   @override
   Widget build(BuildContext context) {
-    final cardStore = CardData();
     return Scaffold(
-      appBar: const AppbarForCardAddition(
+      appBar:  AppbarForCardAddition(
         appBarText: 'New card',
         height: 40,
         route: '/',
+        cardStore: cardStore,
       ),
       backgroundColor: theme.colorScheme.primary,
       body: Container(
@@ -60,22 +63,13 @@ class GoalAddition extends StatelessWidget {
                 )
               ],
             )),
-            Container(
-              height: 50,
-              width: 300,
-              margin: const EdgeInsets.symmetric(vertical: 40),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.colorScheme.secondary,
-                  ),
-                  onPressed: () {
-                    context.go('/cardAdditionSavings');
-                  },
-                  child: Text(
-                    'NEXT',
-                    style: theme.textTheme.bodySmall,
-                  )),
-            )
+            Observer(
+                builder: (_) => NextButton(
+                      press: cardStore.goal.isEmpty
+                          ? null
+                          : () => context.go('/cardAdditionSavings',
+                              extra: cardStore),
+                    ))
           ],
         ),
       ),

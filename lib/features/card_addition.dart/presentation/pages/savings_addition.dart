@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
+import 'package:savings_fund_planner/features/card_addition.dart/presentation/store/card_data.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/appbar_for_card_addition.dart';
+import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/next_button.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/progress_panel.dart';
 
 class SavingsAddition extends StatelessWidget {
-  const SavingsAddition({super.key});
+  const SavingsAddition({super.key, required this.cardStore});
+  final CardData cardStore;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppbarForCardAddition(
+      appBar:  AppbarForCardAddition(
         appBarText: 'New card',
         height: 40,
         route: '/cardAdditionGoal',
+        cardStore: cardStore,
       ),
       backgroundColor: theme.colorScheme.primary,
       body: Container(
@@ -42,7 +47,9 @@ class SavingsAddition extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(25, 12, 25, 0),
                   child: TextField(
                     keyboardType: TextInputType.number,
-                    onChanged: (goalText) {},
+                    onChanged: (need) {
+                      cardStore.personNeed = need;
+                    },
                     cursorColor: Colors.black,
                     minLines: 1,
                     decoration: const InputDecoration(
@@ -66,7 +73,9 @@ class SavingsAddition extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(25, 12, 25, 0),
                   child: TextField(
                     keyboardType: TextInputType.number,
-                    onChanged: (goalText) {},
+                    onChanged: (has) {
+                      cardStore.personHas = has;
+                    },
                     cursorColor: Colors.black,
                     minLines: 1,
                     decoration: const InputDecoration(
@@ -81,22 +90,14 @@ class SavingsAddition extends StatelessWidget {
                 )
               ],
             )),
-            Container(
-              height: 50,
-              width: 300,
-              margin: const EdgeInsets.symmetric(vertical: 40),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.colorScheme.secondary,
-                  ),
-                  onPressed: () {
-                    context.go('/');
-                  },
-                  child: Text(
-                    'NEXT',
-                    style: theme.textTheme.bodySmall,
-                  )),
-            )
+            Observer(
+                builder: (_) => NextButton(
+                    press: cardStore.personNeed.isNotEmpty &
+                            cardStore.personHas.isNotEmpty
+                        ? () {
+                            context.go('/cardAdditionTheme', extra: cardStore);
+                          }
+                        : null))
           ],
         ),
       ),

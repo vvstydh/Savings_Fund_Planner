@@ -29,6 +29,7 @@ flutter:
   assets:
     - assets/images/list_is_empty.png
     - assets/icon.png
+    - assets/images/noPhoto.png
 
 flutter_launcher_icons:
   android:

@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/core/widgets/appbar.dart';
+import 'package:savings_fund_planner/features/card_addition.dart/presentation/store/card_data.dart';
 
 class MainPageWithItems extends StatelessWidget {
-  const MainPageWithItems({super.key});
+  const MainPageWithItems({super.key, required this.cardStore});
+  final CardData cardStore;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: theme.colorScheme.primary,
-        appBar: const Appbar(appBarText: 'Planner', height: 40,),
+        appBar: const Appbar(
+          appBarText: 'Planner',
+          height: 40,
+        ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -45,7 +51,9 @@ class MainPageWithItems extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.colorScheme.secondary,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            context.go('/cardAdditionGoal', extra: cardStore);
+                          },
                           child: Text(
                             'ADD NEW CARD',
                             style: theme.textTheme.bodySmall,
