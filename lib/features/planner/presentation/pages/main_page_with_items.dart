@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/core/widgets/appbar.dart';
-import 'package:savings_fund_planner/features/card_addition.dart/presentation/store/card_data.dart';
+import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
+import 'package:savings_fund_planner/features/planner/presentation/widgets/completed_card_list.dart';
+import 'package:savings_fund_planner/features/planner/presentation/widgets/inprocess_card_list.dart';
+import 'package:savings_fund_planner/features/planner/presentation/widgets/row_inprocess_completed.dart';
+import 'package:savings_fund_planner/features/planner/presentation/widgets/no_completed_cards.dart';
+import 'package:savings_fund_planner/features/planner/presentation/widgets/no_inprocess_cards.dart';
 
 class MainPageWithItems extends StatelessWidget {
   const MainPageWithItems({super.key, required this.cardStore});
@@ -11,6 +16,7 @@ class MainPageWithItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBody: true,
         backgroundColor: theme.colorScheme.primary,
         appBar: const Appbar(
           appBarText: 'Planner',
@@ -19,48 +25,18 @@ class MainPageWithItems extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [Text('In process'), Text('Competed')],
+            RowInprocessCompleted(
+              cardStore: cardStore,
             ),
-            SizedBox(
-              height: 600,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    height: 148,
-                    child: Image.asset(
-                      'assets/images/list_is_empty.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Text(
-                    'You dont have any in process cards',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  Text(
-                    'Click the button below to create one',
-                    style: theme.textTheme.labelSmall,
-                  ),
-                  SizedBox(
-                      height: 50,
-                      width: 280,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colorScheme.secondary,
-                          ),
-                          onPressed: () {
-                            context.go('/cardAdditionGoal', extra: cardStore);
-                          },
-                          child: Text(
-                            'ADD NEW CARD',
-                            style: theme.textTheme.bodySmall,
-                          )))
-                ],
-              ),
-            )
+            Observer(
+                builder: (_) => cardStore.inProcessCompletedSwitch
+                    ? Observer(
+                        builder: (_) => cardStore.inProcess.isEmpty
+                            ? NoInprocessCards(cardStore: cardStore)
+                            : InprocessCardList(cardStore: cardStore))
+                    : cardStore.completed.isEmpty
+                        ? const NoCompletedCards()
+                        : CompletedCardList(cardStore: cardStore))
           ],
         ));
   }

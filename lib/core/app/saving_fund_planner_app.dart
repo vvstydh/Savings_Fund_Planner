@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/goal_addition.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/savings_addition.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/theme_addition.dart';
-import 'package:savings_fund_planner/features/card_addition.dart/presentation/store/card_data.dart';
+import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/features/helper/presentation/pages/helper.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/features/planner/presentation/pages/planner_page.dart';
@@ -15,6 +15,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardStore = CardData();
     final router = GoRouter(
       initialLocation: '/',
       routes: [
@@ -43,7 +44,9 @@ class MainApp extends StatelessWidget {
                 routes: [
                   GoRoute(
                     path: '/',
-                    builder: (context, state) => const PlannerPage(),
+                    builder: (context, state) => PlannerPage(
+                      cardStore: cardStore,
+                    ),
                   ),
                 ],
               ),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
-import 'package:savings_fund_planner/features/card_addition.dart/presentation/store/card_data.dart';
+import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
+import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/appbar_for_card_addition.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/choose_color_row.dart';
-import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/next_button.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/progress_panel.dart';
 
 class ThemeAddition extends StatelessWidget {
@@ -36,8 +37,19 @@ class ThemeAddition extends StatelessWidget {
                     savingsColor: theme.colorScheme.secondary,
                     themeColor: theme.colorScheme.secondary,
                     imageColor: theme.colorScheme.tertiary,
+                    textGoalTheme: theme.textTheme.titleMedium,
+                    textSavingsTheme: theme.textTheme.titleMedium,
+                    textThemeTheme: theme.textTheme.titleMedium,
+                    textImageTheme: theme.textTheme.titleSmall,
                   ),
-                  PlannerCardWidget(cardStore: cardStore),
+                  Observer(
+                      builder: (_) => PlannerCardWidget(
+                            goal: cardStore.goal,
+                            personHas: cardStore.personHas,
+                            personNeed: cardStore.personNeed,
+                            cardColor: cardStore.cardColor,
+                            progressLineValue: 1,
+                          )),
                   Text(
                     'Choose the color for your card',
                     style: theme.textTheme.labelLarge,
@@ -47,12 +59,14 @@ class ThemeAddition extends StatelessWidget {
                   )
                 ],
               )),
-              NextButton(press: () {
-                cardStore.add();
-                context.go(
-                  '/',
-                );
-              })
+              UniversalButton(
+                  text: 'NEXT',
+                  press: () {
+                    cardStore.add();
+                    context.go(
+                      '/',
+                    );
+                  })
             ],
           ),
         ));

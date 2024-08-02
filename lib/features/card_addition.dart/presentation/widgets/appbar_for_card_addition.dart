@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
-import 'package:savings_fund_planner/features/card_addition.dart/presentation/store/card_data.dart';
+import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 
 class AppbarForCardAddition extends StatelessWidget
     implements PreferredSizeWidget {

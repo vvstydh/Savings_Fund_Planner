@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
-import 'package:savings_fund_planner/features/card_addition.dart/presentation/store/card_data.dart';
+import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
+import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/appbar_for_card_addition.dart';
-import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/next_button.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/progress_panel.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 
@@ -14,7 +14,7 @@ class GoalAddition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppbarForCardAddition(
+      appBar: AppbarForCardAddition(
         appBarText: 'New card',
         height: 40,
         route: '/',
@@ -35,6 +35,10 @@ class GoalAddition extends StatelessWidget {
                   savingsColor: theme.colorScheme.tertiary,
                   themeColor: theme.colorScheme.tertiary,
                   imageColor: theme.colorScheme.tertiary,
+                  textGoalTheme: theme.textTheme.titleMedium,
+                  textSavingsTheme: theme.textTheme.titleSmall,
+                  textThemeTheme: theme.textTheme.titleSmall,
+                  textImageTheme: theme.textTheme.titleSmall,
                 ),
                 Container(
                   margin: const EdgeInsets.fromLTRB(25, 25, 25, 0),
@@ -64,7 +68,8 @@ class GoalAddition extends StatelessWidget {
               ],
             )),
             Observer(
-                builder: (_) => NextButton(
+                builder: (_) => UniversalButton(
+                      text: 'NEXT',
                       press: cardStore.goal.isEmpty
                           ? null
                           : () => context.go('/cardAdditionSavings',

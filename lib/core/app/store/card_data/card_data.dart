@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:savings_fund_planner/core/app/store/card_list_data/card_list_data.dart';
 
 part 'card_data.g.dart';
 
@@ -10,10 +11,13 @@ abstract class CardDataStore with Store {
   String goal = '';
 
   @observable
-  String personNeed = '';
+  double personNeed = 0;
 
   @observable
-  String personHas = '';
+  double personHas = 0;
+
+  @observable
+  double progressLineValue = 0;
 
   @observable
   int colorIndex = 0;
@@ -22,14 +26,41 @@ abstract class CardDataStore with Store {
   Color cardColor = Colors.white;
 
   @observable
-  List<String> inProcess = [];
+  bool inProcessCompletedSwitch = true;
 
   @observable
-  List<String> completed = [];
+  List<CardListData> inProcess = [];
+
+  @observable
+  List<CardListData> completed = [];
+
+  @action
+  createprogresslinevalue() {
+    progressLineValue = (personHas / (personNeed / 100)) / 100;
+  }
+
+  @action
+  switchbutton() {
+    inProcessCompletedSwitch = !inProcessCompletedSwitch;
+  }
 
   @action
   add() {
-    inProcess.add(goal);
+    progressLineValue = (personHas / (personNeed / 100)) / 100;
+    inProcess.add(CardListData(
+        goal, personHas, personNeed, cardColor, progressLineValue));
+    goal = '';
+    personNeed = 0;
+    personHas = 0;
+    colorIndex = 0;
+    cardColor = Colors.white;
+    progressLineValue = 0;
+  }
+
+  @action
+  remove(int index) {
+    inProcess.removeAt(index);
+    print(inProcess.length);
   }
 
   @action

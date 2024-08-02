@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:savings_fund_planner/core/theme/theme.dart';
-import 'package:savings_fund_planner/core/widgets/appbar.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
+import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 
-class MainPageEmpty extends StatelessWidget {
-  const MainPageEmpty({super.key, required this.cardStore});
+class NoInprocessCards extends StatelessWidget {
+  const NoInprocessCards({super.key, required this.cardStore});
   final CardData cardStore;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: theme.colorScheme.primary,
-      appBar: const Appbar(
-        appBarText: 'Planner',
-        height: 40,
-      ),
-      body: Column(
+    return SizedBox(
+      height: 600,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
@@ -29,15 +24,15 @@ class MainPageEmpty extends StatelessWidget {
             ),
           ),
           Text(
-            'You don\'t have any cards yet',
+            'You dont have any in process cards',
             style: theme.textTheme.bodyMedium,
           ),
           Text(
-            'Click the button below to create a new one',
+            'Click the button below to create one',
             style: theme.textTheme.labelSmall,
           ),
           UniversalButton(
-            text: 'CREATE YOUR FIRST GOAL',
+            text: 'ADD NEW CARD',
             press: () {
               context.go('/cardAdditionGoal', extra: cardStore);
             },

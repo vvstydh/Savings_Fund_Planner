@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
-import 'package:savings_fund_planner/features/card_addition.dart/presentation/store/card_data.dart';
+import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 
 class ChooseColorRow extends StatelessWidget {
   const ChooseColorRow({super.key, required this.cardStore});

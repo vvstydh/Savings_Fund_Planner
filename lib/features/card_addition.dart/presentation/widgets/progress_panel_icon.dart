@@ -7,47 +7,35 @@ class ProgressPanelIcon extends StatelessWidget {
       required this.title,
       required this.icon,
       required this.iconSize,
-      required this.needLine, required this.iconBackgroundColor});
+      required this.iconBackgroundColor,
+      required this.textTheme});
   final String title;
   final IconData icon;
   final double iconSize;
-  final bool needLine;
   final Color iconBackgroundColor;
+  final TextStyle? textTheme;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           title,
-          style: theme.textTheme.titleSmall,
-          
+          style: textTheme,
         ),
-        Row(
-          children: [
-            Container(
-              height: 45,
-              width: 45,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(45),
-                  color: iconBackgroundColor),
-              child: Icon(
-                icon,
-                size: iconSize,
-                color: theme.colorScheme.primary,
-              ),
-            ),
-            needLine
-                ? Container(
-                    width: 40,
-                    height: 5,
-                    color:theme.colorScheme.tertiary,
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                  )
-                : const SizedBox()
-          ],
-        )
+        Container(
+          height: 45,
+          width: 45,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(45),
+              color: iconBackgroundColor),
+          child: Icon(
+            icon,
+            size: iconSize,
+            color: theme.colorScheme.primary,
+          ),
+        ),
       ],
     );
   }
