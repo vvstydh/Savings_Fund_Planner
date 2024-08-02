@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
-import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 
 class CompletedCardList extends StatelessWidget {
   const CompletedCardList({super.key, required this.cardStore});

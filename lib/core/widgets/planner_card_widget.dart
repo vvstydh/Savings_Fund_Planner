@@ -123,8 +123,8 @@ class PlannerCardWidget extends StatelessWidget {
                       height: 15,
                       child: LinearProgressIndicator(
                         value: progressLineValue,
-                        color: Color.fromARGB(255, 0, 186, 19),
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        color: const Color.fromARGB(255, 0, 186, 19),
+                        borderRadius: const BorderRadius.all(Radius.circular(30)),
                       )),
                 ),
                 Column(
