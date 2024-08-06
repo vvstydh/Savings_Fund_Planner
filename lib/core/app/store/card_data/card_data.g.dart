@@ -104,6 +104,22 @@ mixin _$CardData on CardDataStore, Store {
     });
   }
 
+  late final _$progressLineColorAtom =
+      Atom(name: 'CardDataStore.progressLineColor', context: context);
+
+  @override
+  Color get progressLineColor {
+    _$progressLineColorAtom.reportRead();
+    return super.progressLineColor;
+  }
+
+  @override
+  set progressLineColor(Color value) {
+    _$progressLineColorAtom.reportWrite(value, super.progressLineColor, () {
+      super.progressLineColor = value;
+    });
+  }
+
   late final _$inProcessCompletedSwitchAtom =
       Atom(name: 'CardDataStore.inProcessCompletedSwitch', context: context);
 
@@ -125,13 +141,13 @@ mixin _$CardData on CardDataStore, Store {
       Atom(name: 'CardDataStore.inProcess', context: context);
 
   @override
-  List<CardListData> get inProcess {
+  ObservableList<CardListData> get inProcess {
     _$inProcessAtom.reportRead();
     return super.inProcess;
   }
 
   @override
-  set inProcess(List<CardListData> value) {
+  set inProcess(ObservableList<CardListData> value) {
     _$inProcessAtom.reportWrite(value, super.inProcess, () {
       super.inProcess = value;
     });
@@ -141,13 +157,13 @@ mixin _$CardData on CardDataStore, Store {
       Atom(name: 'CardDataStore.completed', context: context);
 
   @override
-  List<CardListData> get completed {
+  ObservableList<CardListData> get completed {
     _$completedAtom.reportRead();
     return super.completed;
   }
 
   @override
-  set completed(List<CardListData> value) {
+  set completed(ObservableList<CardListData> value) {
     _$completedAtom.reportWrite(value, super.completed, () {
       super.completed = value;
     });
@@ -220,6 +236,7 @@ personHas: ${personHas},
 progressLineValue: ${progressLineValue},
 colorIndex: ${colorIndex},
 cardColor: ${cardColor},
+progressLineColor: ${progressLineColor},
 inProcessCompletedSwitch: ${inProcessCompletedSwitch},
 inProcess: ${inProcess},
 completed: ${completed}

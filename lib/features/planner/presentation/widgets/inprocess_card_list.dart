@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
+import 'package:savings_fund_planner/core/theme/theme.dart';
+import 'package:savings_fund_planner/core/widgets/card_information.dart';
+import 'package:savings_fund_planner/core/widgets/card_list_item.dart';
 import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
 import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 
@@ -21,36 +24,20 @@ class InprocessCardList extends StatelessWidget {
                         builder: (_) => ListView.builder(
                             itemCount: cardStore.inProcess.length,
                             itemBuilder: (context, index) {
-                              return Stack(
-                                alignment: Alignment.topRight,
-                                children: [
-                                  PlannerCardWidget(
-                                    goal: cardStore.inProcess[index].goal,
-                                    personHas:
-                                        cardStore.inProcess[index].personHas,
-                                    personNeed:
-                                        cardStore.inProcess[index].personNeed,
-                                    cardColor:
-                                        cardStore.inProcess[index].cardColor,
-                                    progressLineValue: cardStore
-                                        .inProcess[index].progressLineValue,
-                                  ),
-                                  Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(0, 10, 10, 0),
-                                    child: CircleAvatar(
-                                      radius: 25,
-                                      backgroundColor: Colors.white,
-                                      child: IconButton(
-                                          onPressed: () =>
-                                              cardStore.remove(index),
-                                          icon: const Icon(
-                                            Icons.delete_forever_rounded,
-                                            size: 25,
-                                          )),
-                                    ),
-                                  )
-                                ],
+                              return CardListItem(
+                                goal: cardStore.inProcess[index].goal,
+                                personHas: cardStore.inProcess[index].personHas,
+                                personNeed:
+                                    cardStore.inProcess[index].personNeed,
+                                cardColor: cardStore.inProcess[index].cardColor,
+                                progressLineValue: cardStore
+                                    .inProcess[index].progressLineValue,
+                                progressLineColor: cardStore
+                                    .inProcess[index].progressLineColor,
+                                index: index,
+                                remove: () {
+                                  cardStore.remove(index);
+                                },
                               );
                             }))),
                 Container(

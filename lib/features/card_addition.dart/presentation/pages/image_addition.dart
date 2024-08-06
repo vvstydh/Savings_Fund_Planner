@@ -1,16 +1,17 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
-import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/appbar_for_card_addition.dart';
-import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/choose_color_row.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/progress_panel.dart';
 
-class ThemeAddition extends StatelessWidget {
-  const ThemeAddition({super.key, required this.cardStore});
+class ImageAddition extends StatelessWidget {
+  const ImageAddition({super.key, required this.cardStore});
   final CardData cardStore;
 
   @override
@@ -36,11 +37,11 @@ class ThemeAddition extends StatelessWidget {
                     goalColor: theme.colorScheme.secondary,
                     savingsColor: theme.colorScheme.secondary,
                     themeColor: theme.colorScheme.secondary,
-                    imageColor: theme.colorScheme.tertiary,
+                    imageColor: theme.colorScheme.secondary,
                     textGoalTheme: theme.textTheme.titleMedium,
                     textSavingsTheme: theme.textTheme.titleMedium,
                     textThemeTheme: theme.textTheme.titleMedium,
-                    textImageTheme: theme.textTheme.titleSmall,
+                    textImageTheme: theme.textTheme.titleMedium,
                   ),
                   Observer(
                       builder: (_) => PlannerCardWidget(
@@ -51,19 +52,19 @@ class ThemeAddition extends StatelessWidget {
                             progressLineValue: 1,
                             progressLineColor: cardStore.progressLineColor,
                           )),
-                  Text(
-                    'Choose the color for your card',
-                    style: theme.textTheme.labelLarge,
-                  ),
-                  ChooseColorRow(
-                    cardStore: cardStore,
+                  UniversalButton(
+                    text: 'ADD PHOTO',
+                    press: () {},
                   )
                 ],
               )),
               UniversalButton(
                   text: 'NEXT',
                   press: () {
-                    context.go('/cardAdditionImage', extra: cardStore);
+                    cardStore.add();
+                    context.go(
+                      '/',
+                    );
                   })
             ],
           ),

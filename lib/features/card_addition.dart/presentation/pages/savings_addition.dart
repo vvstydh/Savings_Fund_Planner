@@ -97,7 +97,8 @@ class SavingsAddition extends StatelessWidget {
             Observer(
                 builder: (_) => UniversalButton(
                     text: 'NEXT',
-                    press: cardStore.personNeed == 0 || cardStore.personHas == 0
+                    press: cardStore.personNeed == 0 ||
+                            cardStore.personNeed - cardStore.personHas <= 0
                         ? null
                         : () {
                             context.go('/cardAdditionTheme', extra: cardStore);

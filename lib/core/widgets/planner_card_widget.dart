@@ -9,11 +9,13 @@ class PlannerCardWidget extends StatelessWidget {
       required this.personHas,
       required this.personNeed,
       required this.cardColor,
-      required this.progressLineValue});
+      required this.progressLineValue,
+      required this.progressLineColor});
   final String goal;
   final double personHas;
   final double personNeed;
   final Color cardColor;
+  final Color progressLineColor;
   final double progressLineValue;
 
   @override
@@ -117,15 +119,14 @@ class PlannerCardWidget extends StatelessWidget {
                     )
                   ],
                 ),
-                Observer(
-                  builder: (_) => SizedBox(
-                      width: 165,
-                      height: 15,
-                      child: LinearProgressIndicator(
-                        value: progressLineValue,
-                        color: const Color.fromARGB(255, 0, 186, 19),
-                        borderRadius: const BorderRadius.all(Radius.circular(30)),
-                      )),
+                SizedBox(
+                  width: 165,
+                  height: 15,
+                  child: LinearProgressIndicator(
+                    value: progressLineValue,
+                    color: progressLineColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  ),
                 ),
                 Column(
                   children: [

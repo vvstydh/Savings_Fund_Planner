@@ -23,6 +23,7 @@ class CompletedCardList extends StatelessWidget {
                             personNeed: cardStore.completed[index].personNeed,
                             cardColor: cardStore.completed[index].cardColor,
                             progressLineValue: 1,
+                            progressLineColor: cardStore.progressLineColor,
                           );
                         })),
               ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/goal_addition.dart';
+import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/image_addition.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/savings_addition.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/theme_addition.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
@@ -33,6 +34,12 @@ class MainApp extends StatelessWidget {
         GoRoute(
           path: '/cardAdditionTheme',
           builder: (context, state) => ThemeAddition(
+            cardStore: state.extra as CardData,
+          ),
+        ),
+        GoRoute(
+          path: '/cardAdditionImage',
+          builder: (context, state) => ImageAddition(
             cardStore: state.extra as CardData,
           ),
         ),

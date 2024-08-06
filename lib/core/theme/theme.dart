@@ -22,6 +22,10 @@ final theme = ThemeData(
         fontWeight: FontWeight.w500,
         color: Color.fromARGB(150, 50, 82, 249),
       ),
+      titleLarge: TextStyle(
+        fontSize: 15,
+        color: Color.fromARGB(255, 50, 82, 249),
+      ),
       bodyMedium: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
       bodySmall: TextStyle(fontSize: 15, color: Colors.white),
     ));

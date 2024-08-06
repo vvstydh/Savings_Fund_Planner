@@ -31,9 +31,9 @@ class MainPageWithItems extends StatelessWidget {
             Observer(
                 builder: (_) => cardStore.inProcessCompletedSwitch
                     ? Observer(
-                        builder: (_) => cardStore.inProcess.isEmpty
-                            ? NoInprocessCards(cardStore: cardStore)
-                            : InprocessCardList(cardStore: cardStore))
+                        builder: (_) => cardStore.inProcess.isNotEmpty
+                            ? InprocessCardList(cardStore: cardStore)
+                            : NoInprocessCards(cardStore: cardStore))
                     : cardStore.completed.isEmpty
                         ? const NoCompletedCards()
                         : CompletedCardList(cardStore: cardStore))
