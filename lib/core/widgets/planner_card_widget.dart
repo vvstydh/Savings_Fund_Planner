@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 
 class PlannerCardWidget extends StatelessWidget {

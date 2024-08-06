@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/core/widgets/card_information.dart';
 import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';

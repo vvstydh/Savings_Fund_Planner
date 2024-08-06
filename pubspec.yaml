@@ -15,6 +15,7 @@ dependencies:
   go_router: ^14.2.1
   image_picker: ^1.1.2
 
+  modal_bottom_sheet: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -23,7 +24,6 @@ dev_dependencies:
   mobx_codegen: ^2.6.1
   flutter_native_splash: ^2.4.0
   flutter_launcher_icons: "^0.13.1"
-  modal_bottom_sheet: ^3.0.0
 
 flutter:
   uses-material-design: true

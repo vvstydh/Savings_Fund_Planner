@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
-import 'package:savings_fund_planner/core/theme/theme.dart';
-import 'package:savings_fund_planner/core/widgets/card_information.dart';
 import 'package:savings_fund_planner/core/widgets/card_list_item.dart';
-import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
 import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 
 class InprocessCardList extends StatelessWidget {

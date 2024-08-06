@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
-import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 
 class CardInformation extends StatelessWidget {
   const CardInformation(

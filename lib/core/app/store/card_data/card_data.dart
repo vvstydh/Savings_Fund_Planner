@@ -66,7 +66,6 @@ abstract class CardDataStore with Store {
   @action
   remove(int index) {
     inProcess.removeAt(index);
-    print(inProcess.length);
   }
 
   @action
