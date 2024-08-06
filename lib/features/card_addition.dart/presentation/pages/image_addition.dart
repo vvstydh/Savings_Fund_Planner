@@ -18,7 +18,7 @@ class ImageAddition extends StatelessWidget {
         appBar: AppbarForCardAddition(
           appBarText: 'New card',
           height: 40,
-          route: '/cardAdditionSavings',
+          route: '/cardAdditionTheme',
           cardStore: cardStore,
         ),
         backgroundColor: theme.colorScheme.primary,
