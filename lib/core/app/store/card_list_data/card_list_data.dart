@@ -1,16 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class CardListData {
-  const CardListData(
+  CardListData(
     this.goal,
-    this.personHas,
-    this.personNeed,
-    this.cardColor, this.progressLineValue, this.progressLineColor,
-  );
+    this.cardColor,
+    this.progressLineColor,
+    this.cardImage, {
+    this.progressLineValue = 0,
+    this.personHas = 0,
+    this.personNeed = 0,
+  });
+
   final String goal;
-  final double personHas;
-  final double personNeed;
+  double personHas;
+  double personNeed;
   final Color cardColor;
   final Color progressLineColor;
-  final double progressLineValue;
+  double progressLineValue;
+  final File? cardImage;
 }

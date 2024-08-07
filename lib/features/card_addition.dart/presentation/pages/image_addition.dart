@@ -49,11 +49,55 @@ class ImageAddition extends StatelessWidget {
                             cardColor: cardStore.cardColor,
                             progressLineValue: 1,
                             progressLineColor: cardStore.progressLineColor,
+                            cardImage: cardStore.cardImage,
                           )),
-                  UniversalButton(
-                    text: 'ADD PHOTO',
-                    press: () {},
-                  )
+                  Observer(
+                      builder: (_) => cardStore.cardImage == null
+                          ? UniversalButton(
+                              text: 'ADD PHOTO',
+                              press: () {
+                                cardStore.pickImage();
+                              },
+                            )
+                          : Column(
+                              children: [
+                                Container(
+                                  height: 50,
+                                  width: 300,
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            theme.colorScheme.secondary,
+                                      ),
+                                      onPressed: () {
+                                        cardStore.pickImage();
+                                      },
+                                      child: Text(
+                                        'REPLACE PHOTO',
+                                        style: theme.textTheme.bodySmall,
+                                      )),
+                                ),
+                                Container(
+                                  height: 50,
+                                  width: 300,
+                                  margin: const EdgeInsets.only(
+                                      bottom: 20, top: 10),
+                                  child: TextButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            theme.colorScheme.primary,
+                                      ),
+                                      onPressed: () {
+                                        cardStore.cardImage = null;
+                                      },
+                                      child: Text(
+                                        'DELETE PHOTO',
+                                        style: theme.textTheme.titleLarge,
+                                      )),
+                                ),
+                              ],
+                            ))
                 ],
               )),
               UniversalButton(

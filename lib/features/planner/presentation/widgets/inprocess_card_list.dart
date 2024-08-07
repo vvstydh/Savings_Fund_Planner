@@ -35,6 +35,8 @@ class InprocessCardList extends StatelessWidget {
                                 remove: () {
                                   cardStore.remove(index);
                                 },
+                                cardImage: cardStore.inProcess[index].cardImage,
+                                cardStore: cardStore,
                               );
                             }))),
                 Container(

@@ -72,6 +72,22 @@ mixin _$CardData on CardDataStore, Store {
     });
   }
 
+  late final _$cardAddAmountAtom =
+      Atom(name: 'CardDataStore.cardAddAmount', context: context);
+
+  @override
+  double get cardAddAmount {
+    _$cardAddAmountAtom.reportRead();
+    return super.cardAddAmount;
+  }
+
+  @override
+  set cardAddAmount(double value) {
+    _$cardAddAmountAtom.reportWrite(value, super.cardAddAmount, () {
+      super.cardAddAmount = value;
+    });
+  }
+
   late final _$colorIndexAtom =
       Atom(name: 'CardDataStore.colorIndex', context: context);
 
@@ -101,6 +117,22 @@ mixin _$CardData on CardDataStore, Store {
   set cardColor(Color value) {
     _$cardColorAtom.reportWrite(value, super.cardColor, () {
       super.cardColor = value;
+    });
+  }
+
+  late final _$cardImageAtom =
+      Atom(name: 'CardDataStore.cardImage', context: context);
+
+  @override
+  File? get cardImage {
+    _$cardImageAtom.reportRead();
+    return super.cardImage;
+  }
+
+  @override
+  set cardImage(File? value) {
+    _$cardImageAtom.reportWrite(value, super.cardImage, () {
+      super.cardImage = value;
     });
   }
 
@@ -169,6 +201,14 @@ mixin _$CardData on CardDataStore, Store {
     });
   }
 
+  late final _$pickImageAsyncAction =
+      AsyncAction('CardDataStore.pickImage', context: context);
+
+  @override
+  Future<dynamic> pickImage() {
+    return _$pickImageAsyncAction.run(() => super.pickImage());
+  }
+
   late final _$CardDataStoreActionController =
       ActionController(name: 'CardDataStore', context: context);
 
@@ -234,8 +274,10 @@ goal: ${goal},
 personNeed: ${personNeed},
 personHas: ${personHas},
 progressLineValue: ${progressLineValue},
+cardAddAmount: ${cardAddAmount},
 colorIndex: ${colorIndex},
 cardColor: ${cardColor},
+cardImage: ${cardImage},
 progressLineColor: ${progressLineColor},
 inProcessCompletedSwitch: ${inProcessCompletedSwitch},
 inProcess: ${inProcess},

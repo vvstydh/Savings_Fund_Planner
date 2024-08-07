@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 
 class CardInformation extends StatelessWidget {
-  const CardInformation(
-      {super.key,
-      required this.goal,
-      required this.personHas,
-      required this.personNeed,
-      required this.progressLineValue,
-      required this.progressLineColor});
-  final String goal;
-  final double personHas;
-  final double personNeed;
-  final double progressLineValue;
-  final Color progressLineColor;
+  const CardInformation({
+    super.key,
+    required this.index,
+    required this.cardStore,
+  });
+  final int index;
+  final CardData cardStore;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +23,27 @@ class CardInformation extends StatelessWidget {
         Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 15),
-              height: 300,
-              width: 300,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.black54),
-            ),
+            cardStore.inProcess[index].cardImage != null
+                ? SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.file(
+                        cardStore.inProcess[index].cardImage!,
+                        fit: BoxFit.fill,
+                      ),
+                    ))
+                : SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.asset(
+                        'assets/images/noPhoto.png',
+                        fit: BoxFit.fill,
+                      ),
+                    )),
             Container(
               width: 200,
               padding:
@@ -43,7 +52,7 @@ class CardInformation extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30), color: Colors.white),
               child: Center(
                 child: Text(
-                  goal,
+                  cardStore.inProcess[index].goal,
                   softWrap: true,
                 ),
               ),
@@ -67,7 +76,7 @@ class CardInformation extends StatelessWidget {
                     width: 70,
                     child: SingleChildScrollView(
                       child: Text(
-                        '$personHas',
+                        '${cardStore.inProcess[index].personHas}',
                         style: theme.textTheme.labelMedium,
                         softWrap: true,
                         textAlign: TextAlign.center,
@@ -80,8 +89,8 @@ class CardInformation extends StatelessWidget {
                   width: 165,
                   height: 15,
                   child: LinearProgressIndicator(
-                    value: progressLineValue,
-                    color: progressLineColor,
+                    value: cardStore.inProcess[index].progressLineValue,
+                    color: cardStore.inProcess[index].progressLineColor,
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                   )),
               Column(
@@ -95,7 +104,7 @@ class CardInformation extends StatelessWidget {
                     width: 70,
                     child: SingleChildScrollView(
                       child: Text(
-                        '$personNeed',
+                        '${cardStore.inProcess[index].personNeed}',
                         style: theme.textTheme.labelMedium,
                         softWrap: true,
                         textAlign: TextAlign.center,
@@ -115,7 +124,7 @@ class CardInformation extends StatelessWidget {
               style: theme.textTheme.labelMedium,
             ),
             Text(
-              '${personNeed - personHas}\$',
+              '${cardStore.inProcess[index].personNeed - cardStore.inProcess[index].personHas}\$',
               style: theme.textTheme.labelMedium,
             )
           ],
@@ -134,7 +143,45 @@ class CardInformation extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colorScheme.secondary,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: const Text('Amount to add'),
+                          content: TextField(
+                            decoration: const InputDecoration(
+                              hintText: 'Enter amount',
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                            ),
+                            cursorColor: theme.colorScheme.secondary,
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              cardStore.cardAddAmount = double.parse(value);
+                            },
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  cardStore.cardAddAmount = 0;
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  'Cancel',
+                                  style: theme.textTheme.titleLarge,
+                                )),
+                            TextButton(
+                                onPressed: () {
+                                  cardStore.addAmount(index);
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  'Add',
+                                  style: theme.textTheme.titleLarge,
+                                ))
+                          ],
+                        ));
+              },
               child: Text(
                 'ADD SAVINGS',
                 style: theme.textTheme.bodySmall,
@@ -155,7 +202,45 @@ class CardInformation extends StatelessWidget {
                 side: BorderSide(color: theme.colorScheme.secondary),
                 backgroundColor: theme.colorScheme.primary,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: const Text('Amount to remove'),
+                          content: TextField(
+                            decoration: const InputDecoration(
+                              hintText: 'Enter amount',
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                            ),
+                            cursorColor: theme.colorScheme.secondary,
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              cardStore.cardAddAmount = double.parse(value);
+                            },
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  cardStore.cardAddAmount = 0;
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  'Cancel',
+                                  style: theme.textTheme.titleLarge,
+                                )),
+                            TextButton(
+                                onPressed: () {
+                                  cardStore.removeAmount(index);
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  'Remove',
+                                  style: theme.textTheme.titleLarge,
+                                ))
+                          ],
+                        ));
+              },
               child: Text(
                 'REMOVE SAVINGS',
                 style: theme.textTheme.titleLarge,

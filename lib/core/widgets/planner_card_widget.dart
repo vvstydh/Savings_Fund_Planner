@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 
@@ -9,13 +10,15 @@ class PlannerCardWidget extends StatelessWidget {
       required this.personNeed,
       required this.cardColor,
       required this.progressLineValue,
-      required this.progressLineColor});
+      required this.progressLineColor,
+      this.cardImage});
   final String goal;
   final double personHas;
   final double personNeed;
   final Color cardColor;
   final Color progressLineColor;
   final double progressLineValue;
+  final File? cardImage;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +92,28 @@ class PlannerCardWidget extends StatelessWidget {
                   child: SizedBox(
                       width: 150,
                       height: 150,
-                      child: Image.asset('assets/images/noPhoto.png'))),
+                      child: cardImage != null
+                          ? SizedBox(
+                              width: 150,
+                              height: 150,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(30),
+                                    bottomLeft: Radius.circular(30)),
+                                child: Image.file(
+                                  cardImage!,
+                                  fit: BoxFit.fill,
+                                ),
+                              ))
+                          : SizedBox(
+                              width: 150,
+                              height: 150,
+                              child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(30),
+                                      bottomLeft: Radius.circular(30)),
+                                  child: Image.asset(
+                                      'assets/images/noPhoto.png')))))
             ],
           ),
           Container(
