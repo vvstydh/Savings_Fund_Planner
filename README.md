@@ -1,3 +1,3 @@
-# savings_fund_planner
+# Savings fund planner
 
 An app for tracking your savings.
