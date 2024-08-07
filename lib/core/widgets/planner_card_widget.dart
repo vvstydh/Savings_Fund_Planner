@@ -27,10 +27,9 @@ class PlannerCardWidget extends StatelessWidget {
       height: 250,
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 3,
-          blurRadius: 5,
-        )
+            color: Colors.grey.withOpacity(0.5),
+            blurRadius: 5,
+            offset: const Offset(0, 5)),
       ], borderRadius: BorderRadius.circular(45), color: cardColor),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

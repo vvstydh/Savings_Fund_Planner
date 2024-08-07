@@ -35,7 +35,9 @@ class MainPageWithItems extends StatelessWidget {
                             ? InprocessCardList(cardStore: cardStore)
                             : NoInprocessCards(cardStore: cardStore))
                     : cardStore.completed.isEmpty
-                        ? const NoCompletedCards()
+                        ? NoCompletedCards(
+                            cardStore: cardStore,
+                          )
                         : CompletedCardList(cardStore: cardStore))
           ],
         ));

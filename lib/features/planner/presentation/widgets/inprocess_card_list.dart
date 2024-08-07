@@ -12,42 +12,44 @@ class InprocessCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Container(
-            margin: const EdgeInsets.only(top: 25),
-            child: Column(
-              children: [
-                Expanded(
-                    child: Observer(
-                        builder: (_) => ListView.builder(
-                            itemCount: cardStore.inProcess.length,
-                            itemBuilder: (context, index) {
-                              return CardListItem(
-                                goal: cardStore.inProcess[index].goal,
-                                personHas: cardStore.inProcess[index].personHas,
-                                personNeed:
-                                    cardStore.inProcess[index].personNeed,
-                                cardColor: cardStore.inProcess[index].cardColor,
-                                progressLineValue: cardStore
-                                    .inProcess[index].progressLineValue,
-                                progressLineColor: cardStore
-                                    .inProcess[index].progressLineColor,
-                                index: index,
-                                remove: () {
-                                  cardStore.remove(index);
-                                },
-                                cardImage: cardStore.inProcess[index].cardImage,
-                                cardStore: cardStore,
-                              );
-                            }))),
-                Container(
-                    margin: const EdgeInsets.only(bottom: 90),
-                    child: UniversalButton(
-                      text: 'ADD NEW CARD',
-                      press: () {
-                        context.go('/cardAdditionGoal', extra: cardStore);
-                      },
-                    ))
-              ],
-            )));
+        child: Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Column(
+          children: [
+            Expanded(
+                child: Observer(
+                    builder: (_) => ListView.builder(
+                        itemCount: cardStore.inProcess.length,
+                        itemBuilder: (context, index) {
+                          return CardListItem(
+                            goal: cardStore.inProcess[index].goal,
+                            personHas: cardStore.inProcess[index].personHas,
+                            personNeed: cardStore.inProcess[index].personNeed,
+                            cardColor: cardStore.inProcess[index].cardColor,
+                            progressLineValue:
+                                cardStore.inProcess[index].progressLineValue,
+                            progressLineColor:
+                                cardStore.inProcess[index].progressLineColor,
+                            index: index,
+                            remove: () {
+                              cardStore.remove(index);
+                            },
+                            cardImage: cardStore.inProcess[index].cardImage,
+                            cardStore: cardStore,
+                          );
+                        }))),
+          ],
+        ),
+        Container(
+            margin: const EdgeInsets.only(bottom: 90),
+            child: UniversalButton(
+              text: 'ADD NEW CARD',
+              press: () {
+                context.go('/cardAdditionGoal', extra: cardStore);
+              },
+            ))
+      ],
+    ));
   }
 }
