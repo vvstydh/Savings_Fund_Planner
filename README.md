@@ -1,3 +1,3 @@
-# savings_fund_planner
+# Savings fund planner
 
-A new Flutter project.
+An app for tracking your savings.
