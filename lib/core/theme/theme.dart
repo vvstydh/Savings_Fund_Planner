@@ -28,4 +28,8 @@ final theme = ThemeData(
       ),
       bodyMedium: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
       bodySmall: TextStyle(fontSize: 15, color: Colors.white),
+      displayLarge: TextStyle(
+          fontSize: 20, color: Colors.black, fontWeight: FontWeight.w500),
+      displayMedium: TextStyle(
+          fontSize: 15, color: Colors.black, fontWeight: FontWeight.w400),
     ));

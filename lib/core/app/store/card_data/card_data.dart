@@ -65,18 +65,16 @@ abstract class CardDataStore with Store {
         progressLineValue: progressLineValue,
         personHas: personHas,
         personNeed: personNeed));
-    goal = '';
-    personNeed = 0;
-    personHas = 0;
-    colorIndex = 0;
-    cardColor = Colors.white;
-    progressLineColor = const Color.fromARGB(255, 0, 186, 19);
-    progressLineValue = 0;
-    cardImage = null;
+    unEdited();
   }
 
   @action
-  remove(int index) {
+  removeFromInprocess(int index) {
+    inProcess.removeAt(index);
+  }
+
+  @action
+  removeFromCompleted(int index) {
     inProcess.removeAt(index);
   }
 
@@ -106,11 +104,17 @@ abstract class CardDataStore with Store {
     }
   }
 
-  addAmount(int index) {
+  addAmount(int index, BuildContext context) {
     inProcess[index].personHas += cardAddAmount;
     inProcess[index].progressLineValue =
         (inProcess[index].personHas / (inProcess[index].personNeed / 100)) /
             100;
+    if (inProcess[index].personHas >= inProcess[index].personNeed) {
+      inProcess[index].personHas = inProcess[index].personNeed;
+      Navigator.pop(context);
+      completed.add(inProcess[index]);
+      removeFromInprocess(index);
+    }
     cardAddAmount = 0;
   }
 
@@ -120,6 +124,60 @@ abstract class CardDataStore with Store {
         (inProcess[index].personHas / (inProcess[index].personNeed / 100)) /
             100;
     cardAddAmount = 0;
+  }
+
+  cardColorIndexCheck(Color cardColor) {
+    switch (cardColor) {
+      case Colors.white:
+        colorIndex = 0;
+      case const Color.fromARGB(255, 212, 240, 255):
+        colorIndex = 1;
+      case const Color.fromARGB(255, 241, 212, 255):
+        colorIndex = 2;
+      case const Color.fromARGB(255, 255, 248, 212):
+        colorIndex = 3;
+      case const Color.fromARGB(255, 255, 225, 212):
+        colorIndex = 4;
+    }
+  }
+
+  goToEdit(int index) {
+    cardColorIndexCheck(inProcess[index].cardColor);
+    goal = inProcess[index].goal;
+    personHas = inProcess[index].personHas;
+    personNeed = inProcess[index].personNeed;
+    progressLineValue = inProcess[index].progressLineValue;
+    progressLineColor = inProcess[index].progressLineColor;
+    cardColor = inProcess[index].cardColor;
+    cardImage = inProcess[index].cardImage;
+  }
+
+  updateLine() {
+    progressLineValue = (personHas / (personNeed / 100)) / 100;
+  }
+
+  edited(int index) {
+    inProcess[index].goal = goal;
+    inProcess[index].personHas = personHas;
+    inProcess[index].personNeed = personNeed;
+    inProcess[index].progressLineValue =
+        (inProcess[index].personHas / (inProcess[index].personNeed / 100)) /
+            100;
+    inProcess[index].progressLineColor = progressLineColor;
+    inProcess[index].cardColor = cardColor;
+    inProcess[index].cardImage = cardImage;
+    unEdited();
+  }
+
+  unEdited() {
+    goal = '';
+    personNeed = 0;
+    personHas = 0;
+    colorIndex = 0;
+    cardColor = Colors.white;
+    progressLineColor = const Color.fromARGB(255, 0, 186, 19);
+    progressLineValue = 0;
+    cardImage = null;
   }
 
   @action

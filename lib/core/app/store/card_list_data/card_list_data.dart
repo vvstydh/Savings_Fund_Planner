@@ -13,11 +13,11 @@ class CardListData {
     this.personNeed = 0,
   });
 
-  final String goal;
+  String goal;
   double personHas;
   double personNeed;
-  final Color cardColor;
-  final Color progressLineColor;
+  Color cardColor;
+  Color progressLineColor;
   double progressLineValue;
-  final File? cardImage;
+  File? cardImage;
 }

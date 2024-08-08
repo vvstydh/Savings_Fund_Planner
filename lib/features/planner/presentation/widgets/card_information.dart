@@ -18,46 +18,50 @@ class CardInformation extends StatelessWidget {
           color: theme.colorScheme.primary,
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(30), topRight: Radius.circular(30))),
-      padding: const EdgeInsets.all(30),
+      padding: const EdgeInsets.only(left: 30, right: 30),
       child: ListView(children: [
-        Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            cardStore.inProcess[index].cardImage != null
-                ? SizedBox(
-                    width: 300,
-                    height: 300,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.file(
-                        cardStore.inProcess[index].cardImage!,
-                        fit: BoxFit.fill,
-                      ),
-                    ))
-                : SizedBox(
-                    width: 300,
-                    height: 300,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.asset(
-                        'assets/images/noPhoto.png',
-                        fit: BoxFit.fill,
-                      ),
-                    )),
-            Container(
-              width: 200,
-              padding:
-                  const EdgeInsets.only(left: 15, top: 5, right: 15, bottom: 5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30), color: Colors.white),
-              child: Center(
-                child: Text(
-                  cardStore.inProcess[index].goal,
-                  softWrap: true,
+        Container(
+          margin: const EdgeInsets.only(top: 30),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              cardStore.inProcess[index].cardImage != null
+                  ? SizedBox(
+                      width: 300,
+                      height: 300,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.file(
+                          cardStore.inProcess[index].cardImage!,
+                          fit: BoxFit.fill,
+                        ),
+                      ))
+                  : SizedBox(
+                      width: 300,
+                      height: 300,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.asset(
+                          'assets/images/noPhoto.png',
+                          fit: BoxFit.fill,
+                        ),
+                      )),
+              Container(
+                width: 200,
+                padding: const EdgeInsets.only(
+                    left: 15, top: 5, right: 15, bottom: 5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.white),
+                child: Center(
+                  child: Text(
+                    cardStore.inProcess[index].goal,
+                    softWrap: true,
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 35),
@@ -172,8 +176,8 @@ class CardInformation extends StatelessWidget {
                                 )),
                             TextButton(
                                 onPressed: () {
-                                  cardStore.addAmount(index);
                                   Navigator.pop(context);
+                                  cardStore.addAmount(index, context);
                                 },
                                 child: Text(
                                   'Add',
@@ -268,6 +272,9 @@ class CardInformation extends StatelessWidget {
           'You haven\'t added or removed any savings yet',
           style: theme.textTheme.labelSmall,
         )),
+        const SizedBox(
+          height: 30,
+        )
       ]),
     );
   }

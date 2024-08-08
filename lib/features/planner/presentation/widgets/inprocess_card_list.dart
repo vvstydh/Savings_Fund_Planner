@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
-import 'package:savings_fund_planner/features/planner/presentation/widgets/card_list_item.dart';
+import 'package:savings_fund_planner/features/planner/presentation/widgets/card_list_inprocess_item.dart';
 import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 
 class InprocessCardList extends StatelessWidget {
-  const InprocessCardList({super.key, required this.cardStore});
+  const InprocessCardList(
+      {super.key, required this.cardStore, required this.rootNavigatorKey});
   final CardData cardStore;
+  final GlobalKey<NavigatorState> rootNavigatorKey;
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +24,10 @@ class InprocessCardList extends StatelessWidget {
                     builder: (_) => ListView.builder(
                         itemCount: cardStore.inProcess.length,
                         itemBuilder: (context, index) {
-                          return CardListItem(
-                            goal: cardStore.inProcess[index].goal,
-                            personHas: cardStore.inProcess[index].personHas,
-                            personNeed: cardStore.inProcess[index].personNeed,
-                            cardColor: cardStore.inProcess[index].cardColor,
-                            progressLineValue:
-                                cardStore.inProcess[index].progressLineValue,
-                            progressLineColor:
-                                cardStore.inProcess[index].progressLineColor,
+                          return CardListInprocessItem(
                             index: index,
-                            remove: () {
-                              cardStore.remove(index);
-                            },
-                            cardImage: cardStore.inProcess[index].cardImage,
                             cardStore: cardStore,
+                            rootNavigatorKey: rootNavigatorKey,
                           );
                         }))),
           ],

@@ -246,11 +246,22 @@ mixin _$CardData on CardDataStore, Store {
   }
 
   @override
-  dynamic remove(int index) {
+  dynamic removeFromInprocess(int index) {
     final _$actionInfo = _$CardDataStoreActionController.startAction(
-        name: 'CardDataStore.remove');
+        name: 'CardDataStore.removeFromInprocess');
     try {
-      return super.remove(index);
+      return super.removeFromInprocess(index);
+    } finally {
+      _$CardDataStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic removeFromCompleted(int index) {
+    final _$actionInfo = _$CardDataStoreActionController.startAction(
+        name: 'CardDataStore.removeFromCompleted');
+    try {
+      return super.removeFromCompleted(index);
     } finally {
       _$CardDataStoreActionController.endAction(_$actionInfo);
     }

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/features/planner/presentation/widgets/card_edit_delete.dart';
@@ -6,29 +5,16 @@ import 'package:savings_fund_planner/features/planner/presentation/widgets/card_
 import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class CardListItem extends StatelessWidget {
-  const CardListItem(
+class CardListInprocessItem extends StatelessWidget {
+  const CardListInprocessItem(
       {super.key,
-      required this.goal,
-      required this.personHas,
-      required this.personNeed,
-      required this.progressLineValue,
-      required this.progressLineColor,
-      required this.cardColor,
       required this.index,
-      this.remove,
-      this.cardImage,
-      required this.cardStore});
-  final String goal;
-  final double personHas;
-  final double personNeed;
-  final double progressLineValue;
-  final Color progressLineColor;
-  final Color cardColor;
+      required this.cardStore,
+      required this.rootNavigatorKey});
+
   final int index;
-  final VoidCallback? remove;
-  final File? cardImage;
   final CardData cardStore;
+  final GlobalKey<NavigatorState> rootNavigatorKey;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +22,7 @@ class CardListItem extends StatelessWidget {
       onTap: () {
         showBarModalBottomSheet(
             expand: true,
-            context: context,
+            context: rootNavigatorKey.currentContext!,
             backgroundColor: Colors.transparent,
             builder: (BuildContext context) {
               return CardInformation(
@@ -49,13 +35,13 @@ class CardListItem extends StatelessWidget {
         alignment: Alignment.topRight,
         children: [
           PlannerCardWidget(
-            goal: goal,
-            personHas: personHas,
-            personNeed: personNeed,
-            cardColor: cardColor,
-            progressLineValue: progressLineValue,
-            progressLineColor: progressLineColor,
-            cardImage: cardImage,
+            goal: cardStore.inProcess[index].goal,
+            personHas: cardStore.inProcess[index].personHas,
+            personNeed: cardStore.inProcess[index].personNeed,
+            cardColor: cardStore.inProcess[index].cardColor,
+            progressLineValue: cardStore.inProcess[index].progressLineValue,
+            progressLineColor: cardStore.inProcess[index].progressLineColor,
+            cardImage: cardStore.inProcess[index].cardImage,
           ),
           Container(
             margin: const EdgeInsets.fromLTRB(0, 10, 10, 0),
@@ -64,12 +50,16 @@ class CardListItem extends StatelessWidget {
               backgroundColor: Colors.white,
               child: IconButton(
                   onPressed: () {
-                    showCupertinoModalBottomSheet(
-                      expand: false,
-                        context: context,
+                    showMaterialModalBottomSheet(
+                        expand: true,
+                        enableDrag: false,
+                        context: rootNavigatorKey.currentContext!,
                         backgroundColor: Colors.transparent,
                         builder: (BuildContext context) {
-                          return CardEditDelete();
+                          return CardEditDelete(
+                            cardStore: cardStore,
+                            index: index,
+                          );
                         });
                   },
                   icon: const Icon(

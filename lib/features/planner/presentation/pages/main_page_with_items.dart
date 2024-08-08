@@ -10,8 +10,9 @@ import 'package:savings_fund_planner/features/planner/presentation/widgets/no_co
 import 'package:savings_fund_planner/features/planner/presentation/widgets/no_inprocess_cards.dart';
 
 class MainPageWithItems extends StatelessWidget {
-  const MainPageWithItems({super.key, required this.cardStore});
+  const MainPageWithItems({super.key, required this.cardStore, required this.rootNavigatorKey});
   final CardData cardStore;
+  final GlobalKey<NavigatorState> rootNavigatorKey;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class MainPageWithItems extends StatelessWidget {
                 builder: (_) => cardStore.inProcessCompletedSwitch
                     ? Observer(
                         builder: (_) => cardStore.inProcess.isNotEmpty
-                            ? InprocessCardList(cardStore: cardStore)
+                            ? InprocessCardList(cardStore: cardStore, rootNavigatorKey: rootNavigatorKey,)
                             : NoInprocessCards(cardStore: cardStore))
                     : cardStore.completed.isEmpty
                         ? NoCompletedCards(
