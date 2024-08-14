@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
 import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/appbar_for_card_addition.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/progress_panel.dart';
+import 'package:savings_fund_planner/features/planner/data/cardDB.dart';
+import 'package:savings_fund_planner/features/planner/data/card_database.dart';
 
 class ImageAddition extends StatelessWidget {
-  const ImageAddition({super.key, required this.cardStore});
+  const ImageAddition(
+      {super.key, required this.cardStore, required this.cardDataBase});
   final CardData cardStore;
+  final CardDataBase cardDataBase;
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +51,20 @@ class ImageAddition extends StatelessWidget {
                             goal: cardStore.goal,
                             personHas: cardStore.personHas,
                             personNeed: cardStore.personNeed,
-                            cardColor: cardStore.cardColor,
                             progressLineValue: 1,
-                            progressLineColor: cardStore.progressLineColor,
-                            cardImage: cardStore.cardImage,
+                            cardColorValueRed: cardStore.cardColorValueRed,
+                            cardColorValueGreen: cardStore.cardColorValueGreen,
+                            cardColorValueBlue: cardStore.cardColorValueBlue,
+                            progressLineColorValueRed:
+                                cardStore.progressLineColorValueRed,
+                            progressLineColorValueGreen:
+                                cardStore.progressLineColorValueGreen,
+                            progressLineColorValueBlue:
+                                cardStore.progressLineColorValueBlue,
+                            cardImagePath: cardStore.cardImagePath,
                           )),
                   Observer(
-                      builder: (_) => cardStore.cardImage == null
+                      builder: (_) => cardStore.cardImagePath == ''
                           ? UniversalButton(
                               text: 'ADD PHOTO',
                               press: () {
@@ -89,7 +101,7 @@ class ImageAddition extends StatelessWidget {
                                             theme.colorScheme.primary,
                                       ),
                                       onPressed: () {
-                                        cardStore.cardImage = null;
+                                        cardStore.cardImagePath = '';
                                       },
                                       child: Text(
                                         'DELETE PHOTO',
@@ -104,6 +116,24 @@ class ImageAddition extends StatelessWidget {
                   text: 'NEXT',
                   press: () {
                     cardStore.add();
+                    cardDataBase.addCard(CardDB(
+                      goal: cardStore.goal,
+                      personHas: cardStore.personHas,
+                      personNeed: cardStore.personNeed,
+                      cardColorValueRed: cardStore.cardColorValueRed,
+                      cardColorValueGreen: cardStore.cardColorValueGreen,
+                      cardColorValueBlue: cardStore.cardColorValueBlue,
+                      progressLineColorValueRed:
+                          cardStore.progressLineColorValueRed,
+                      progressLineColorValueGreen:
+                          cardStore.progressLineColorValueGreen,
+                      progressLineColorValueBlue:
+                          cardStore.progressLineColorValueBlue,
+                      progressLineValue: cardStore.progressLineValue,
+                      cardImagePath: cardStore.cardImagePath,
+                    ));
+                    cardDataBase.fetchCards();
+                    cardStore.unEdited();
                     context.go(
                       '/',
                     );

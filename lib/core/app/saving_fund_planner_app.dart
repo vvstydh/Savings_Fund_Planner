@@ -7,6 +7,7 @@ import 'package:savings_fund_planner/features/card_addition.dart/presentation/pa
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/features/helper/presentation/pages/helper.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
+import 'package:savings_fund_planner/features/planner/data/card_database.dart';
 import 'package:savings_fund_planner/features/planner/presentation/pages/card_edit.dart';
 import 'package:savings_fund_planner/features/planner/presentation/pages/planner_page.dart';
 import 'package:savings_fund_planner/features/settings/presentation/pages/settings.dart';
@@ -19,8 +20,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<NavigatorState> rootNavigatorKey =
         GlobalKey<NavigatorState>();
-
     final cardStore = CardData();
+    final cardDataBase = CardDataBase();
+   
     final router = GoRouter(
       navigatorKey: rootNavigatorKey,
       initialLocation: '/',
@@ -46,6 +48,7 @@ class MainApp extends StatelessWidget {
           path: '/cardAdditionImage',
           builder: (context, state) => ImageAddition(
             cardStore: cardStore,
+            cardDataBase: cardDataBase,
           ),
         ),
         GoRoute(

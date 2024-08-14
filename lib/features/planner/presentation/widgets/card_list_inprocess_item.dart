@@ -34,15 +34,14 @@ class CardListInprocessItem extends StatelessWidget {
       child: Stack(
         alignment: Alignment.topRight,
         children: [
+          /*
           PlannerCardWidget(
             goal: cardStore.inProcess[index].goal,
             personHas: cardStore.inProcess[index].personHas,
             personNeed: cardStore.inProcess[index].personNeed,
-            cardColor: cardStore.inProcess[index].cardColor,
             progressLineValue: cardStore.inProcess[index].progressLineValue,
-            progressLineColor: cardStore.inProcess[index].progressLineColor,
-            cardImage: cardStore.inProcess[index].cardImage,
           ),
+          */
           Container(
             margin: const EdgeInsets.fromLTRB(0, 10, 10, 0),
             child: CircleAvatar(

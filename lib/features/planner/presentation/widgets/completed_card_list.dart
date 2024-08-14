@@ -13,6 +13,7 @@ class CompletedCardList extends StatelessWidget {
             margin: const EdgeInsets.only(top: 25),
             child: Column(
               children: [
+                /*
                 Expanded(
                     child: ListView.builder(
                         itemCount: cardStore.completed.length,
@@ -26,7 +27,7 @@ class CompletedCardList extends StatelessWidget {
                             progressLineColor: cardStore.progressLineColor,
                             cardImage: cardStore.completed[index].cardImage,
                           );
-                        })),
+                        })),*/
               ],
             )));
   }

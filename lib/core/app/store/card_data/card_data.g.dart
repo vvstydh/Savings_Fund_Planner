@@ -104,6 +104,121 @@ mixin _$CardData on CardDataStore, Store {
     });
   }
 
+  late final _$cardColorValueRedAtom =
+      Atom(name: 'CardDataStore.cardColorValueRed', context: context);
+
+  @override
+  int get cardColorValueRed {
+    _$cardColorValueRedAtom.reportRead();
+    return super.cardColorValueRed;
+  }
+
+  @override
+  set cardColorValueRed(int value) {
+    _$cardColorValueRedAtom.reportWrite(value, super.cardColorValueRed, () {
+      super.cardColorValueRed = value;
+    });
+  }
+
+  late final _$cardColorValueGreenAtom =
+      Atom(name: 'CardDataStore.cardColorValueGreen', context: context);
+
+  @override
+  int get cardColorValueGreen {
+    _$cardColorValueGreenAtom.reportRead();
+    return super.cardColorValueGreen;
+  }
+
+  @override
+  set cardColorValueGreen(int value) {
+    _$cardColorValueGreenAtom.reportWrite(value, super.cardColorValueGreen, () {
+      super.cardColorValueGreen = value;
+    });
+  }
+
+  late final _$cardColorValueBlueAtom =
+      Atom(name: 'CardDataStore.cardColorValueBlue', context: context);
+
+  @override
+  int get cardColorValueBlue {
+    _$cardColorValueBlueAtom.reportRead();
+    return super.cardColorValueBlue;
+  }
+
+  @override
+  set cardColorValueBlue(int value) {
+    _$cardColorValueBlueAtom.reportWrite(value, super.cardColorValueBlue, () {
+      super.cardColorValueBlue = value;
+    });
+  }
+
+  late final _$progressLineColorValueRedAtom =
+      Atom(name: 'CardDataStore.progressLineColorValueRed', context: context);
+
+  @override
+  int get progressLineColorValueRed {
+    _$progressLineColorValueRedAtom.reportRead();
+    return super.progressLineColorValueRed;
+  }
+
+  @override
+  set progressLineColorValueRed(int value) {
+    _$progressLineColorValueRedAtom
+        .reportWrite(value, super.progressLineColorValueRed, () {
+      super.progressLineColorValueRed = value;
+    });
+  }
+
+  late final _$progressLineColorValueGreenAtom =
+      Atom(name: 'CardDataStore.progressLineColorValueGreen', context: context);
+
+  @override
+  int get progressLineColorValueGreen {
+    _$progressLineColorValueGreenAtom.reportRead();
+    return super.progressLineColorValueGreen;
+  }
+
+  @override
+  set progressLineColorValueGreen(int value) {
+    _$progressLineColorValueGreenAtom
+        .reportWrite(value, super.progressLineColorValueGreen, () {
+      super.progressLineColorValueGreen = value;
+    });
+  }
+
+  late final _$progressLineColorValueBlueAtom =
+      Atom(name: 'CardDataStore.progressLineColorValueBlue', context: context);
+
+  @override
+  int get progressLineColorValueBlue {
+    _$progressLineColorValueBlueAtom.reportRead();
+    return super.progressLineColorValueBlue;
+  }
+
+  @override
+  set progressLineColorValueBlue(int value) {
+    _$progressLineColorValueBlueAtom
+        .reportWrite(value, super.progressLineColorValueBlue, () {
+      super.progressLineColorValueBlue = value;
+    });
+  }
+
+  late final _$cardImagePathAtom =
+      Atom(name: 'CardDataStore.cardImagePath', context: context);
+
+  @override
+  String get cardImagePath {
+    _$cardImagePathAtom.reportRead();
+    return super.cardImagePath;
+  }
+
+  @override
+  set cardImagePath(String value) {
+    _$cardImagePathAtom.reportWrite(value, super.cardImagePath, () {
+      super.cardImagePath = value;
+    });
+  }
+
   late final _$cardColorAtom =
       Atom(name: 'CardDataStore.cardColor', context: context);
 
@@ -287,6 +402,13 @@ personHas: ${personHas},
 progressLineValue: ${progressLineValue},
 cardAddAmount: ${cardAddAmount},
 colorIndex: ${colorIndex},
+cardColorValueRed: ${cardColorValueRed},
+cardColorValueGreen: ${cardColorValueGreen},
+cardColorValueBlue: ${cardColorValueBlue},
+progressLineColorValueRed: ${progressLineColorValueRed},
+progressLineColorValueGreen: ${progressLineColorValueGreen},
+progressLineColorValueBlue: ${progressLineColorValueBlue},
+cardImagePath: ${cardImagePath},
 cardColor: ${cardColor},
 cardImage: ${cardImage},
 progressLineColor: ${progressLineColor},

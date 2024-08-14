@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'card.dart';
+part of 'cardDB.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -9,13 +9,13 @@ part of 'card.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetCardCollection on Isar {
-  IsarCollection<Card> get cards => this.collection();
+extension GetCardDBCollection on Isar {
+  IsarCollection<CardDB> get cardDBs => this.collection();
 }
 
-const CardSchema = CollectionSchema(
-  name: r'Card',
-  id: 2706062385186124215,
+const CardDBSchema = CollectionSchema(
+  name: r'CardDB',
+  id: 228102962991858224,
   properties: {
     r'cardColorValueBlue': PropertySchema(
       id: 0,
@@ -73,22 +73,22 @@ const CardSchema = CollectionSchema(
       type: IsarType.double,
     )
   },
-  estimateSize: _cardEstimateSize,
-  serialize: _cardSerialize,
-  deserialize: _cardDeserialize,
-  deserializeProp: _cardDeserializeProp,
+  estimateSize: _cardDBEstimateSize,
+  serialize: _cardDBSerialize,
+  deserialize: _cardDBDeserialize,
+  deserializeProp: _cardDBDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _cardGetId,
-  getLinks: _cardGetLinks,
-  attach: _cardAttach,
+  getId: _cardDBGetId,
+  getLinks: _cardDBGetLinks,
+  attach: _cardDBAttach,
   version: '3.1.0+1',
 );
 
-int _cardEstimateSize(
-  Card object,
+int _cardDBEstimateSize(
+  CardDB object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -98,8 +98,8 @@ int _cardEstimateSize(
   return bytesCount;
 }
 
-void _cardSerialize(
-  Card object,
+void _cardDBSerialize(
+  CardDB object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -117,29 +117,30 @@ void _cardSerialize(
   writer.writeDouble(offsets[10], object.progressLineValue);
 }
 
-Card _cardDeserialize(
+CardDB _cardDBDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Card();
-  object.cardColorValueBlue = reader.readLong(offsets[0]);
-  object.cardColorValueGreen = reader.readLong(offsets[1]);
-  object.cardColorValueRed = reader.readLong(offsets[2]);
-  object.cardImagePath = reader.readString(offsets[3]);
-  object.goal = reader.readString(offsets[4]);
+  final object = CardDB(
+    cardColorValueBlue: reader.readLong(offsets[0]),
+    cardColorValueGreen: reader.readLong(offsets[1]),
+    cardColorValueRed: reader.readLong(offsets[2]),
+    cardImagePath: reader.readString(offsets[3]),
+    goal: reader.readString(offsets[4]),
+    personHas: reader.readDouble(offsets[5]),
+    personNeed: reader.readDouble(offsets[6]),
+    progressLineColorValueBlue: reader.readLong(offsets[7]),
+    progressLineColorValueGreen: reader.readLong(offsets[8]),
+    progressLineColorValueRed: reader.readLong(offsets[9]),
+    progressLineValue: reader.readDouble(offsets[10]),
+  );
   object.id = id;
-  object.personHas = reader.readDouble(offsets[5]);
-  object.personNeed = reader.readDouble(offsets[6]);
-  object.progressLineColorValueBlue = reader.readLong(offsets[7]);
-  object.progressLineColorValueGreen = reader.readLong(offsets[8]);
-  object.progressLineColorValueRed = reader.readLong(offsets[9]);
-  object.progressLineValue = reader.readDouble(offsets[10]);
   return object;
 }
 
-P _cardDeserializeProp<P>(
+P _cardDBDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -173,28 +174,28 @@ P _cardDeserializeProp<P>(
   }
 }
 
-Id _cardGetId(Card object) {
+Id _cardDBGetId(CardDB object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _cardGetLinks(Card object) {
+List<IsarLinkBase<dynamic>> _cardDBGetLinks(CardDB object) {
   return [];
 }
 
-void _cardAttach(IsarCollection<dynamic> col, Id id, Card object) {
+void _cardDBAttach(IsarCollection<dynamic> col, Id id, CardDB object) {
   object.id = id;
 }
 
-extension CardQueryWhereSort on QueryBuilder<Card, Card, QWhere> {
-  QueryBuilder<Card, Card, QAfterWhere> anyId() {
+extension CardDBQueryWhereSort on QueryBuilder<CardDB, CardDB, QWhere> {
+  QueryBuilder<CardDB, CardDB, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension CardQueryWhere on QueryBuilder<Card, Card, QWhereClause> {
-  QueryBuilder<Card, Card, QAfterWhereClause> idEqualTo(Id id) {
+extension CardDBQueryWhere on QueryBuilder<CardDB, CardDB, QWhereClause> {
+  QueryBuilder<CardDB, CardDB, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -203,7 +204,7 @@ extension CardQueryWhere on QueryBuilder<Card, Card, QWhereClause> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<CardDB, CardDB, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -225,7 +226,7 @@ extension CardQueryWhere on QueryBuilder<Card, Card, QWhereClause> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<CardDB, CardDB, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -234,7 +235,7 @@ extension CardQueryWhere on QueryBuilder<Card, Card, QWhereClause> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<CardDB, CardDB, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -243,7 +244,7 @@ extension CardQueryWhere on QueryBuilder<Card, Card, QWhereClause> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterWhereClause> idBetween(
+  QueryBuilder<CardDB, CardDB, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -260,8 +261,8 @@ extension CardQueryWhere on QueryBuilder<Card, Card, QWhereClause> {
   }
 }
 
-extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueBlueEqualTo(
+extension CardDBQueryFilter on QueryBuilder<CardDB, CardDB, QFilterCondition> {
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardColorValueBlueEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -271,7 +272,8 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueBlueGreaterThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      cardColorValueBlueGreaterThan(
     int value, {
     bool include = false,
   }) {
@@ -284,7 +286,8 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueBlueLessThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      cardColorValueBlueLessThan(
     int value, {
     bool include = false,
   }) {
@@ -297,7 +300,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueBlueBetween(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardColorValueBlueBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -314,8 +317,8 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueGreenEqualTo(
-      int value) {
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      cardColorValueGreenEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'cardColorValueGreen',
@@ -324,7 +327,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       cardColorValueGreenGreaterThan(
     int value, {
     bool include = false,
@@ -338,7 +341,8 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueGreenLessThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      cardColorValueGreenLessThan(
     int value, {
     bool include = false,
   }) {
@@ -351,7 +355,8 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueGreenBetween(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      cardColorValueGreenBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -368,7 +373,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueRedEqualTo(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardColorValueRedEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -378,7 +383,8 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueRedGreaterThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      cardColorValueRedGreaterThan(
     int value, {
     bool include = false,
   }) {
@@ -391,7 +397,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueRedLessThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardColorValueRedLessThan(
     int value, {
     bool include = false,
   }) {
@@ -404,7 +410,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardColorValueRedBetween(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardColorValueRedBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -421,7 +427,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardImagePathEqualTo(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardImagePathEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -434,7 +440,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardImagePathGreaterThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardImagePathGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -449,7 +455,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardImagePathLessThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardImagePathLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -464,7 +470,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardImagePathBetween(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardImagePathBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -483,7 +489,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardImagePathStartsWith(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardImagePathStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -496,7 +502,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardImagePathEndsWith(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardImagePathEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -509,7 +515,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardImagePathContains(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardImagePathContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -521,7 +527,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardImagePathMatches(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardImagePathMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -533,7 +539,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardImagePathIsEmpty() {
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardImagePathIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'cardImagePath',
@@ -542,7 +548,8 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> cardImagePathIsNotEmpty() {
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      cardImagePathIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'cardImagePath',
@@ -551,7 +558,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> goalEqualTo(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> goalEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -564,7 +571,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> goalGreaterThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> goalGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -579,7 +586,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> goalLessThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> goalLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -594,7 +601,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> goalBetween(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> goalBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -613,7 +620,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> goalStartsWith(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> goalStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -626,7 +633,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> goalEndsWith(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> goalEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -639,7 +646,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> goalContains(String value,
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> goalContains(String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -650,7 +657,8 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> goalMatches(String pattern,
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> goalMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -661,7 +669,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> goalIsEmpty() {
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> goalIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'goal',
@@ -670,7 +678,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> goalIsNotEmpty() {
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> goalIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'goal',
@@ -679,7 +687,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -688,7 +696,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -701,7 +709,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> idLessThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -714,7 +722,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> idBetween(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -731,7 +739,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> personHasEqualTo(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> personHasEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
@@ -744,7 +752,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> personHasGreaterThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> personHasGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -759,7 +767,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> personHasLessThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> personHasLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -774,7 +782,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> personHasBetween(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> personHasBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -793,7 +801,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> personNeedEqualTo(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> personNeedEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
@@ -806,7 +814,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> personNeedGreaterThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> personNeedGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -821,7 +829,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> personNeedLessThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> personNeedLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -836,7 +844,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> personNeedBetween(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> personNeedBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -855,7 +863,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueBlueEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -865,7 +873,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueBlueGreaterThan(
     int value, {
     bool include = false,
@@ -879,7 +887,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueBlueLessThan(
     int value, {
     bool include = false,
@@ -893,7 +901,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueBlueBetween(
     int lower,
     int upper, {
@@ -911,7 +919,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueGreenEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -921,7 +929,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueGreenGreaterThan(
     int value, {
     bool include = false,
@@ -935,7 +943,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueGreenLessThan(
     int value, {
     bool include = false,
@@ -949,7 +957,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueGreenBetween(
     int lower,
     int upper, {
@@ -967,7 +975,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueRedEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -977,7 +985,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueRedGreaterThan(
     int value, {
     bool include = false,
@@ -991,7 +999,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueRedLessThan(
     int value, {
     bool include = false,
@@ -1005,7 +1013,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition>
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
       progressLineColorValueRedBetween(
     int lower,
     int upper, {
@@ -1023,7 +1031,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> progressLineValueEqualTo(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> progressLineValueEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
@@ -1036,7 +1044,8 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> progressLineValueGreaterThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      progressLineValueGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1051,7 +1060,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> progressLineValueLessThan(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> progressLineValueLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1066,7 +1075,7 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Card, Card, QAfterFilterCondition> progressLineValueBetween(
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> progressLineValueBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -1086,314 +1095,320 @@ extension CardQueryFilter on QueryBuilder<Card, Card, QFilterCondition> {
   }
 }
 
-extension CardQueryObject on QueryBuilder<Card, Card, QFilterCondition> {}
+extension CardDBQueryObject on QueryBuilder<CardDB, CardDB, QFilterCondition> {}
 
-extension CardQueryLinks on QueryBuilder<Card, Card, QFilterCondition> {}
+extension CardDBQueryLinks on QueryBuilder<CardDB, CardDB, QFilterCondition> {}
 
-extension CardQuerySortBy on QueryBuilder<Card, Card, QSortBy> {
-  QueryBuilder<Card, Card, QAfterSortBy> sortByCardColorValueBlue() {
+extension CardDBQuerySortBy on QueryBuilder<CardDB, CardDB, QSortBy> {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByCardColorValueBlue() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueBlue', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByCardColorValueBlueDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByCardColorValueBlueDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueBlue', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByCardColorValueGreen() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByCardColorValueGreen() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueGreen', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByCardColorValueGreenDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByCardColorValueGreenDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueGreen', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByCardColorValueRed() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByCardColorValueRed() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueRed', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByCardColorValueRedDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByCardColorValueRedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueRed', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByCardImagePath() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByCardImagePath() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardImagePath', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByCardImagePathDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByCardImagePathDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardImagePath', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByGoal() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByGoal() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'goal', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByGoalDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByGoalDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'goal', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByPersonHas() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByPersonHas() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'personHas', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByPersonHasDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByPersonHasDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'personHas', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByPersonNeed() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByPersonNeed() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'personNeed', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByPersonNeedDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByPersonNeedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'personNeed', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByProgressLineColorValueBlue() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy>
+      sortByProgressLineColorValueBlue() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueBlue', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy>
+  QueryBuilder<CardDB, CardDB, QAfterSortBy>
       sortByProgressLineColorValueBlueDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueBlue', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByProgressLineColorValueGreen() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy>
+      sortByProgressLineColorValueGreen() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueGreen', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy>
+  QueryBuilder<CardDB, CardDB, QAfterSortBy>
       sortByProgressLineColorValueGreenDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueGreen', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByProgressLineColorValueRed() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByProgressLineColorValueRed() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueRed', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByProgressLineColorValueRedDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy>
+      sortByProgressLineColorValueRedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueRed', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByProgressLineValue() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByProgressLineValue() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineValue', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> sortByProgressLineValueDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> sortByProgressLineValueDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineValue', Sort.desc);
     });
   }
 }
 
-extension CardQuerySortThenBy on QueryBuilder<Card, Card, QSortThenBy> {
-  QueryBuilder<Card, Card, QAfterSortBy> thenByCardColorValueBlue() {
+extension CardDBQuerySortThenBy on QueryBuilder<CardDB, CardDB, QSortThenBy> {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByCardColorValueBlue() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueBlue', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByCardColorValueBlueDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByCardColorValueBlueDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueBlue', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByCardColorValueGreen() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByCardColorValueGreen() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueGreen', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByCardColorValueGreenDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByCardColorValueGreenDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueGreen', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByCardColorValueRed() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByCardColorValueRed() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueRed', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByCardColorValueRedDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByCardColorValueRedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardColorValueRed', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByCardImagePath() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByCardImagePath() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardImagePath', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByCardImagePathDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByCardImagePathDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cardImagePath', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByGoal() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByGoal() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'goal', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByGoalDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByGoalDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'goal', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenById() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByPersonHas() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByPersonHas() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'personHas', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByPersonHasDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByPersonHasDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'personHas', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByPersonNeed() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByPersonNeed() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'personNeed', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByPersonNeedDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByPersonNeedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'personNeed', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByProgressLineColorValueBlue() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy>
+      thenByProgressLineColorValueBlue() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueBlue', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy>
+  QueryBuilder<CardDB, CardDB, QAfterSortBy>
       thenByProgressLineColorValueBlueDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueBlue', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByProgressLineColorValueGreen() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy>
+      thenByProgressLineColorValueGreen() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueGreen', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy>
+  QueryBuilder<CardDB, CardDB, QAfterSortBy>
       thenByProgressLineColorValueGreenDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueGreen', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByProgressLineColorValueRed() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByProgressLineColorValueRed() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueRed', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByProgressLineColorValueRedDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy>
+      thenByProgressLineColorValueRedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineColorValueRed', Sort.desc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByProgressLineValue() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByProgressLineValue() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineValue', Sort.asc);
     });
   }
 
-  QueryBuilder<Card, Card, QAfterSortBy> thenByProgressLineValueDesc() {
+  QueryBuilder<CardDB, CardDB, QAfterSortBy> thenByProgressLineValueDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'progressLineValue', Sort.desc);
     });
   }
 }
 
-extension CardQueryWhereDistinct on QueryBuilder<Card, Card, QDistinct> {
-  QueryBuilder<Card, Card, QDistinct> distinctByCardColorValueBlue() {
+extension CardDBQueryWhereDistinct on QueryBuilder<CardDB, CardDB, QDistinct> {
+  QueryBuilder<CardDB, CardDB, QDistinct> distinctByCardColorValueBlue() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'cardColorValueBlue');
     });
   }
 
-  QueryBuilder<Card, Card, QDistinct> distinctByCardColorValueGreen() {
+  QueryBuilder<CardDB, CardDB, QDistinct> distinctByCardColorValueGreen() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'cardColorValueGreen');
     });
   }
 
-  QueryBuilder<Card, Card, QDistinct> distinctByCardColorValueRed() {
+  QueryBuilder<CardDB, CardDB, QDistinct> distinctByCardColorValueRed() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'cardColorValueRed');
     });
   }
 
-  QueryBuilder<Card, Card, QDistinct> distinctByCardImagePath(
+  QueryBuilder<CardDB, CardDB, QDistinct> distinctByCardImagePath(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'cardImagePath',
@@ -1401,121 +1416,124 @@ extension CardQueryWhereDistinct on QueryBuilder<Card, Card, QDistinct> {
     });
   }
 
-  QueryBuilder<Card, Card, QDistinct> distinctByGoal(
+  QueryBuilder<CardDB, CardDB, QDistinct> distinctByGoal(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'goal', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Card, Card, QDistinct> distinctByPersonHas() {
+  QueryBuilder<CardDB, CardDB, QDistinct> distinctByPersonHas() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'personHas');
     });
   }
 
-  QueryBuilder<Card, Card, QDistinct> distinctByPersonNeed() {
+  QueryBuilder<CardDB, CardDB, QDistinct> distinctByPersonNeed() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'personNeed');
     });
   }
 
-  QueryBuilder<Card, Card, QDistinct> distinctByProgressLineColorValueBlue() {
+  QueryBuilder<CardDB, CardDB, QDistinct>
+      distinctByProgressLineColorValueBlue() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'progressLineColorValueBlue');
     });
   }
 
-  QueryBuilder<Card, Card, QDistinct> distinctByProgressLineColorValueGreen() {
+  QueryBuilder<CardDB, CardDB, QDistinct>
+      distinctByProgressLineColorValueGreen() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'progressLineColorValueGreen');
     });
   }
 
-  QueryBuilder<Card, Card, QDistinct> distinctByProgressLineColorValueRed() {
+  QueryBuilder<CardDB, CardDB, QDistinct>
+      distinctByProgressLineColorValueRed() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'progressLineColorValueRed');
     });
   }
 
-  QueryBuilder<Card, Card, QDistinct> distinctByProgressLineValue() {
+  QueryBuilder<CardDB, CardDB, QDistinct> distinctByProgressLineValue() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'progressLineValue');
     });
   }
 }
 
-extension CardQueryProperty on QueryBuilder<Card, Card, QQueryProperty> {
-  QueryBuilder<Card, int, QQueryOperations> idProperty() {
+extension CardDBQueryProperty on QueryBuilder<CardDB, CardDB, QQueryProperty> {
+  QueryBuilder<CardDB, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Card, int, QQueryOperations> cardColorValueBlueProperty() {
+  QueryBuilder<CardDB, int, QQueryOperations> cardColorValueBlueProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cardColorValueBlue');
     });
   }
 
-  QueryBuilder<Card, int, QQueryOperations> cardColorValueGreenProperty() {
+  QueryBuilder<CardDB, int, QQueryOperations> cardColorValueGreenProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cardColorValueGreen');
     });
   }
 
-  QueryBuilder<Card, int, QQueryOperations> cardColorValueRedProperty() {
+  QueryBuilder<CardDB, int, QQueryOperations> cardColorValueRedProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cardColorValueRed');
     });
   }
 
-  QueryBuilder<Card, String, QQueryOperations> cardImagePathProperty() {
+  QueryBuilder<CardDB, String, QQueryOperations> cardImagePathProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cardImagePath');
     });
   }
 
-  QueryBuilder<Card, String, QQueryOperations> goalProperty() {
+  QueryBuilder<CardDB, String, QQueryOperations> goalProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'goal');
     });
   }
 
-  QueryBuilder<Card, double, QQueryOperations> personHasProperty() {
+  QueryBuilder<CardDB, double, QQueryOperations> personHasProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'personHas');
     });
   }
 
-  QueryBuilder<Card, double, QQueryOperations> personNeedProperty() {
+  QueryBuilder<CardDB, double, QQueryOperations> personNeedProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'personNeed');
     });
   }
 
-  QueryBuilder<Card, int, QQueryOperations>
+  QueryBuilder<CardDB, int, QQueryOperations>
       progressLineColorValueBlueProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'progressLineColorValueBlue');
     });
   }
 
-  QueryBuilder<Card, int, QQueryOperations>
+  QueryBuilder<CardDB, int, QQueryOperations>
       progressLineColorValueGreenProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'progressLineColorValueGreen');
     });
   }
 
-  QueryBuilder<Card, int, QQueryOperations>
+  QueryBuilder<CardDB, int, QQueryOperations>
       progressLineColorValueRedProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'progressLineColorValueRed');
     });
   }
 
-  QueryBuilder<Card, double, QQueryOperations> progressLineValueProperty() {
+  QueryBuilder<CardDB, double, QQueryOperations> progressLineValueProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'progressLineValue');
     });

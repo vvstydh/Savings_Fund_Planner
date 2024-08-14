@@ -8,29 +8,41 @@ class PlannerCardWidget extends StatelessWidget {
       required this.goal,
       required this.personHas,
       required this.personNeed,
-      required this.cardColor,
       required this.progressLineValue,
-      required this.progressLineColor,
-      this.cardImage});
+      required this.cardColorValueRed,
+      required this.cardColorValueGreen,
+      required this.cardColorValueBlue,
+      required this.progressLineColorValueRed,
+      required this.progressLineColorValueGreen,
+      required this.progressLineColorValueBlue,
+      required this.cardImagePath});
   final String goal;
   final double personHas;
   final double personNeed;
-  final Color cardColor;
-  final Color progressLineColor;
+  final int cardColorValueRed;
+  final int cardColorValueGreen;
+  final int cardColorValueBlue;
+  final int progressLineColorValueRed;
+  final int progressLineColorValueGreen;
+  final int progressLineColorValueBlue;
   final double progressLineValue;
-  final File? cardImage;
+  final String cardImagePath;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(20),
       height: 250,
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            blurRadius: 5,
-            offset: const Offset(0, 5)),
-      ], borderRadius: BorderRadius.circular(45), color: cardColor),
+      decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                blurRadius: 5,
+                offset: const Offset(0, 5)),
+          ],
+          borderRadius: BorderRadius.circular(45),
+          color: Color.fromARGB(
+              255, cardColorValueRed, cardColorValueGreen, cardColorValueBlue)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +103,7 @@ class PlannerCardWidget extends StatelessWidget {
                   child: SizedBox(
                       width: 150,
                       height: 150,
-                      child: cardImage != null
+                      child: cardImagePath != ''
                           ? SizedBox(
                               width: 150,
                               height: 150,
@@ -100,7 +112,7 @@ class PlannerCardWidget extends StatelessWidget {
                                     topRight: Radius.circular(30),
                                     bottomLeft: Radius.circular(30)),
                                 child: Image.file(
-                                  cardImage!,
+                                  File(cardImagePath),
                                   fit: BoxFit.fill,
                                 ),
                               ))
@@ -146,7 +158,8 @@ class PlannerCardWidget extends StatelessWidget {
                   height: 15,
                   child: LinearProgressIndicator(
                     value: progressLineValue,
-                    color: progressLineColor,
+                    color: Color.fromARGB(255, progressLineColorValueRed,
+                        progressLineColorValueGreen, progressLineColorValueBlue),
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                   ),
                 ),

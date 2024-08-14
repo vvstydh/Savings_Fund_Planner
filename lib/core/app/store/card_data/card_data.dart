@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import 'package:savings_fund_planner/core/app/store/card_list_data/card_list_data.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
+import 'package:savings_fund_planner/features/planner/data/cardDB.dart';
 
 part 'card_data.g.dart';
 
@@ -31,7 +32,28 @@ abstract class CardDataStore with Store {
   int colorIndex = 0;
 
   @observable
-  Color cardColor = Colors.white;
+  int cardColorValueRed = 255;
+
+  @observable
+  int cardColorValueGreen = 255;
+
+  @observable
+  int cardColorValueBlue = 255;
+
+  @observable
+  int progressLineColorValueRed = 0;
+
+  @observable
+  int progressLineColorValueGreen = 186;
+
+  @observable
+  int progressLineColorValueBlue = 19;
+
+  @observable
+  String cardImagePath = '';
+
+  @observable
+  Color cardColor = const Color.fromARGB(255, 255, 255, 255);
 
   @observable
   File? cardImage;
@@ -83,24 +105,45 @@ abstract class CardDataStore with Store {
     switch (index) {
       case 0:
         colorIndex = 0;
-        cardColor = Colors.white;
         progressLineColor = const Color.fromARGB(255, 0, 186, 19);
+        cardColorValueRed = 255;
+        cardColorValueGreen = 255;
+        cardColorValueBlue = 255;
+        progressLineColorValueRed = 0;
+        progressLineColorValueGreen = 186;
+        progressLineColorValueBlue = 19;
       case 1:
         colorIndex = 1;
-        cardColor = const Color.fromARGB(255, 212, 240, 255);
-        progressLineColor = theme.colorScheme.secondary;
+        cardColorValueRed = 212;
+        cardColorValueGreen = 240;
+        cardColorValueBlue = 255;
+        progressLineColorValueRed = 50;
+        progressLineColorValueGreen = 82;
+        progressLineColorValueBlue = 249;
       case 2:
         colorIndex = 2;
-        cardColor = const Color.fromARGB(255, 241, 212, 255);
-        progressLineColor = const Color.fromARGB(255, 245, 50, 249);
+        cardColorValueRed = 241;
+        cardColorValueGreen = 212;
+        cardColorValueBlue = 255;
+        progressLineColorValueRed = 245;
+        progressLineColorValueGreen = 50;
+        progressLineColorValueBlue = 249;
       case 3:
         colorIndex = 3;
-        cardColor = const Color.fromARGB(255, 255, 248, 212);
-        progressLineColor = const Color.fromARGB(255, 255, 223, 64);
+        cardColorValueRed = 255;
+        cardColorValueGreen = 248;
+        cardColorValueBlue = 212;
+        progressLineColorValueRed = 255;
+        progressLineColorValueGreen = 223;
+        progressLineColorValueBlue = 64;
       case 4:
         colorIndex = 4;
-        cardColor = const Color.fromARGB(255, 255, 225, 212);
-        progressLineColor = const Color.fromARGB(255, 249, 110, 50);
+        cardColorValueRed = 255;
+        cardColorValueGreen = 225;
+        cardColorValueBlue = 212;
+        progressLineColorValueRed = 249;
+        progressLineColorValueGreen = 110;
+        progressLineColorValueBlue = 50;
     }
   }
 
@@ -178,6 +221,13 @@ abstract class CardDataStore with Store {
     progressLineColor = const Color.fromARGB(255, 0, 186, 19);
     progressLineValue = 0;
     cardImage = null;
+    cardColorValueRed = 255;
+    cardColorValueGreen = 255;
+    cardColorValueBlue = 255;
+    progressLineColorValueRed = 0;
+    progressLineColorValueGreen = 186;
+    progressLineColorValueBlue = 19;
+    cardImagePath = '';
   }
 
   @action
@@ -186,6 +236,8 @@ abstract class CardDataStore with Store {
         await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (returnedImage == null) return;
+
+    cardImagePath = returnedImage.path;
 
     cardImage = File(returnedImage.path);
   }

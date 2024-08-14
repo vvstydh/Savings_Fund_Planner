@@ -47,9 +47,17 @@ class ThemeAddition extends StatelessWidget {
                             goal: cardStore.goal,
                             personHas: cardStore.personHas,
                             personNeed: cardStore.personNeed,
-                            cardColor: cardStore.cardColor,
                             progressLineValue: 1,
-                            progressLineColor: cardStore.progressLineColor,
+                            cardColorValueRed: cardStore.cardColorValueRed,
+                            cardColorValueGreen: cardStore.cardColorValueGreen,
+                            cardColorValueBlue: cardStore.cardColorValueBlue,
+                            progressLineColorValueRed:
+                                cardStore.progressLineColorValueRed,
+                            progressLineColorValueGreen:
+                                cardStore.progressLineColorValueGreen,
+                            progressLineColorValueBlue:
+                                cardStore.progressLineColorValueBlue,
+                            cardImagePath: cardStore.cardImagePath,
                           )),
                   Text(
                     'Choose the color for your card',

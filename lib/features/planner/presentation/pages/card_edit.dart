@@ -41,7 +41,7 @@ class CardEdit extends StatelessWidget {
                 : IconButton(
                     icon: const Icon(
                       Icons.check_rounded,
-                      color:  Color.fromARGB(255, 0, 186, 19),
+                      color: Color.fromARGB(255, 0, 186, 19),
                     ),
                     onPressed: () {
                       cardStore.edited(index);
@@ -54,16 +54,15 @@ class CardEdit extends StatelessWidget {
       backgroundColor: theme.colorScheme.primary,
       body: ListView(
         children: [
+          /*
           Observer(
               builder: (_) => PlannerCardWidget(
                     goal: cardStore.goal,
                     personHas: cardStore.personHas,
                     personNeed: cardStore.personNeed,
-                    cardColor: cardStore.cardColor,
                     progressLineValue: cardStore.progressLineValue,
-                    progressLineColor: cardStore.progressLineColor,
-                    cardImage: cardStore.cardImage,
                   )),
+                  */
           Container(
             height: 50,
             width: 300,
