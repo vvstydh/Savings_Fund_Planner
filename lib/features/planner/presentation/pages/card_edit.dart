@@ -5,11 +5,17 @@ import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/choose_color_row.dart';
+import 'package:savings_fund_planner/features/planner/data/card_database.dart';
 
 class CardEdit extends StatelessWidget {
-  const CardEdit({super.key, required this.cardStore, required this.index});
+  const CardEdit(
+      {super.key,
+      required this.cardStore,
+      required this.index,
+      required this.cardDataBase});
   final CardData cardStore;
   final int index;
+  final CardDataBase cardDataBase;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +50,7 @@ class CardEdit extends StatelessWidget {
                       color: Color.fromARGB(255, 0, 186, 19),
                     ),
                     onPressed: () {
-                      cardStore.edited(index);
+                      cardDataBase.edittCard(cardStore.inProcess[index]);
                       context.go('/');
                     },
                   ),
@@ -54,15 +60,22 @@ class CardEdit extends StatelessWidget {
       backgroundColor: theme.colorScheme.primary,
       body: ListView(
         children: [
-          /*
           Observer(
-              builder: (_) => PlannerCardWidget(
-                    goal: cardStore.goal,
-                    personHas: cardStore.personHas,
-                    personNeed: cardStore.personNeed,
-                    progressLineValue: cardStore.progressLineValue,
-                  )),
-                  */
+            builder: (_) => PlannerCardWidget(
+                goal: cardStore.goal,
+                personHas: cardStore.personHas,
+                personNeed: cardStore.personNeed,
+                progressLineValue: cardStore.progressLineValue,
+                cardColorValueRed: cardStore.cardColorValueRed,
+                cardColorValueGreen: cardStore.cardColorValueGreen,
+                cardColorValueBlue: cardStore.cardColorValueBlue,
+                progressLineColorValueRed: cardStore.progressLineColorValueRed,
+                progressLineColorValueGreen:
+                    cardStore.progressLineColorValueGreen,
+                progressLineColorValueBlue:
+                    cardStore.progressLineColorValueBlue,
+                cardImagePath: cardStore.cardImagePath),
+          ),
           Container(
             height: 50,
             width: 300,
@@ -89,7 +102,7 @@ class CardEdit extends StatelessWidget {
                   backgroundColor: theme.colorScheme.primary,
                 ),
                 onPressed: () {
-                  cardStore.cardImage = null;
+                  cardStore.cardImagePath = '';
                 },
                 child: Text(
                   'DELETE PHOTO',

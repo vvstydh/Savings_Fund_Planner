@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 
-part 'cardDB.g.dart';
+part 'card_db.g.dart';
 
 @Collection()
 class CardDB {
@@ -19,15 +19,15 @@ class CardDB {
 
   Id id = Isar.autoIncrement;
 
-  final String goal;
-  final double personHas;
-  final double personNeed;
-  final int cardColorValueRed;
-  final int cardColorValueGreen;
-  final int cardColorValueBlue;
-  final int progressLineColorValueRed;
-  final int progressLineColorValueGreen;
-  final int progressLineColorValueBlue;
-  final double progressLineValue;
-  final String cardImagePath;
+  String goal;
+  double personHas;
+  double personNeed;
+  int cardColorValueRed;
+  int cardColorValueGreen;
+  int cardColorValueBlue;
+  int progressLineColorValueRed;
+  int progressLineColorValueGreen;
+  int progressLineColorValueBlue;
+  double progressLineValue;
+  String cardImagePath;
 }

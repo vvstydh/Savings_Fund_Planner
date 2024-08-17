@@ -219,54 +219,6 @@ mixin _$CardData on CardDataStore, Store {
     });
   }
 
-  late final _$cardColorAtom =
-      Atom(name: 'CardDataStore.cardColor', context: context);
-
-  @override
-  Color get cardColor {
-    _$cardColorAtom.reportRead();
-    return super.cardColor;
-  }
-
-  @override
-  set cardColor(Color value) {
-    _$cardColorAtom.reportWrite(value, super.cardColor, () {
-      super.cardColor = value;
-    });
-  }
-
-  late final _$cardImageAtom =
-      Atom(name: 'CardDataStore.cardImage', context: context);
-
-  @override
-  File? get cardImage {
-    _$cardImageAtom.reportRead();
-    return super.cardImage;
-  }
-
-  @override
-  set cardImage(File? value) {
-    _$cardImageAtom.reportWrite(value, super.cardImage, () {
-      super.cardImage = value;
-    });
-  }
-
-  late final _$progressLineColorAtom =
-      Atom(name: 'CardDataStore.progressLineColor', context: context);
-
-  @override
-  Color get progressLineColor {
-    _$progressLineColorAtom.reportRead();
-    return super.progressLineColor;
-  }
-
-  @override
-  set progressLineColor(Color value) {
-    _$progressLineColorAtom.reportWrite(value, super.progressLineColor, () {
-      super.progressLineColor = value;
-    });
-  }
-
   late final _$inProcessCompletedSwitchAtom =
       Atom(name: 'CardDataStore.inProcessCompletedSwitch', context: context);
 
@@ -288,13 +240,13 @@ mixin _$CardData on CardDataStore, Store {
       Atom(name: 'CardDataStore.inProcess', context: context);
 
   @override
-  ObservableList<CardListData> get inProcess {
+  ObservableList<CardDB> get inProcess {
     _$inProcessAtom.reportRead();
     return super.inProcess;
   }
 
   @override
-  set inProcess(ObservableList<CardListData> value) {
+  set inProcess(ObservableList<CardDB> value) {
     _$inProcessAtom.reportWrite(value, super.inProcess, () {
       super.inProcess = value;
     });
@@ -304,13 +256,13 @@ mixin _$CardData on CardDataStore, Store {
       Atom(name: 'CardDataStore.completed', context: context);
 
   @override
-  ObservableList<CardListData> get completed {
+  ObservableList<CardDbCompleted> get completed {
     _$completedAtom.reportRead();
     return super.completed;
   }
 
   @override
-  set completed(ObservableList<CardListData> value) {
+  set completed(ObservableList<CardDbCompleted> value) {
     _$completedAtom.reportWrite(value, super.completed, () {
       super.completed = value;
     });
@@ -361,17 +313,6 @@ mixin _$CardData on CardDataStore, Store {
   }
 
   @override
-  dynamic removeFromInprocess(int index) {
-    final _$actionInfo = _$CardDataStoreActionController.startAction(
-        name: 'CardDataStore.removeFromInprocess');
-    try {
-      return super.removeFromInprocess(index);
-    } finally {
-      _$CardDataStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic removeFromCompleted(int index) {
     final _$actionInfo = _$CardDataStoreActionController.startAction(
         name: 'CardDataStore.removeFromCompleted');
@@ -409,9 +350,6 @@ progressLineColorValueRed: ${progressLineColorValueRed},
 progressLineColorValueGreen: ${progressLineColorValueGreen},
 progressLineColorValueBlue: ${progressLineColorValueBlue},
 cardImagePath: ${cardImagePath},
-cardColor: ${cardColor},
-cardImage: ${cardImage},
-progressLineColor: ${progressLineColor},
 inProcessCompletedSwitch: ${inProcessCompletedSwitch},
 inProcess: ${inProcess},
 completed: ${completed}

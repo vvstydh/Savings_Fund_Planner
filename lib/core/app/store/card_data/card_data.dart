@@ -1,12 +1,8 @@
-import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
-
-import 'package:savings_fund_planner/core/app/store/card_list_data/card_list_data.dart';
-import 'package:savings_fund_planner/core/theme/theme.dart';
-import 'package:savings_fund_planner/features/planner/data/cardDB.dart';
+import 'package:savings_fund_planner/features/planner/data/completed/card_db_completed.dart';
+import 'package:savings_fund_planner/features/planner/data/in_process/card_db.dart';
 
 part 'card_data.g.dart';
 
@@ -53,22 +49,13 @@ abstract class CardDataStore with Store {
   String cardImagePath = '';
 
   @observable
-  Color cardColor = const Color.fromARGB(255, 255, 255, 255);
-
-  @observable
-  File? cardImage;
-
-  @observable
-  Color progressLineColor = const Color.fromARGB(255, 0, 186, 19);
-
-  @observable
   bool inProcessCompletedSwitch = true;
 
   @observable
-  ObservableList<CardListData> inProcess = ObservableList<CardListData>();
+  ObservableList<CardDB> inProcess = ObservableList<CardDB>();
 
   @observable
-  ObservableList<CardListData> completed = ObservableList<CardListData>();
+  ObservableList<CardDbCompleted> completed = ObservableList<CardDbCompleted>();
 
   @action
   createprogresslinevalue() {
@@ -83,16 +70,19 @@ abstract class CardDataStore with Store {
   @action
   add() {
     progressLineValue = (personHas / (personNeed / 100)) / 100;
-    inProcess.add(CardListData(goal, cardColor, progressLineColor, cardImage,
-        progressLineValue: progressLineValue,
-        personHas: personHas,
-        personNeed: personNeed));
-    unEdited();
-  }
-
-  @action
-  removeFromInprocess(int index) {
-    inProcess.removeAt(index);
+    inProcess.add(CardDB(
+      goal: goal,
+      personHas: personHas,
+      personNeed: personNeed,
+      cardColorValueRed: cardColorValueRed,
+      cardColorValueGreen: cardColorValueGreen,
+      cardColorValueBlue: cardColorValueBlue,
+      progressLineColorValueRed: progressLineColorValueRed,
+      progressLineColorValueGreen: progressLineColorValueGreen,
+      progressLineColorValueBlue: progressLineColorValueBlue,
+      progressLineValue: progressLineValue,
+      cardImagePath: cardImagePath,
+    ));
   }
 
   @action
@@ -105,7 +95,6 @@ abstract class CardDataStore with Store {
     switch (index) {
       case 0:
         colorIndex = 0;
-        progressLineColor = const Color.fromARGB(255, 0, 186, 19);
         cardColorValueRed = 255;
         cardColorValueGreen = 255;
         cardColorValueBlue = 255;
@@ -147,69 +136,38 @@ abstract class CardDataStore with Store {
     }
   }
 
-  addAmount(int index, BuildContext context) {
-    inProcess[index].personHas += cardAddAmount;
-    inProcess[index].progressLineValue =
-        (inProcess[index].personHas / (inProcess[index].personNeed / 100)) /
-            100;
-    if (inProcess[index].personHas >= inProcess[index].personNeed) {
-      inProcess[index].personHas = inProcess[index].personNeed;
-      Navigator.pop(context);
-      completed.add(inProcess[index]);
-      removeFromInprocess(index);
-    }
-    cardAddAmount = 0;
-  }
-
-  removeAmount(int index) {
-    inProcess[index].personHas -= cardAddAmount;
-    inProcess[index].progressLineValue =
-        (inProcess[index].personHas / (inProcess[index].personNeed / 100)) /
-            100;
-    cardAddAmount = 0;
-  }
-
-  cardColorIndexCheck(Color cardColor) {
-    switch (cardColor) {
-      case Colors.white:
+  cardColorIndexCheck(int progressLineColorValueRed) {
+    switch (progressLineColorValueRed) {
+      case 0:
         colorIndex = 0;
-      case const Color.fromARGB(255, 212, 240, 255):
+      case 50:
         colorIndex = 1;
-      case const Color.fromARGB(255, 241, 212, 255):
+      case 245:
         colorIndex = 2;
-      case const Color.fromARGB(255, 255, 248, 212):
+      case 255:
         colorIndex = 3;
-      case const Color.fromARGB(255, 255, 225, 212):
+      case 249:
         colorIndex = 4;
     }
   }
 
   goToEdit(int index) {
-    cardColorIndexCheck(inProcess[index].cardColor);
+    cardColorIndexCheck(inProcess[index].progressLineColorValueRed);
     goal = inProcess[index].goal;
     personHas = inProcess[index].personHas;
     personNeed = inProcess[index].personNeed;
     progressLineValue = inProcess[index].progressLineValue;
-    progressLineColor = inProcess[index].progressLineColor;
-    cardColor = inProcess[index].cardColor;
-    cardImage = inProcess[index].cardImage;
+    cardColorValueRed = inProcess[index].cardColorValueRed;
+    cardColorValueGreen = inProcess[index].cardColorValueGreen;
+    cardColorValueBlue = inProcess[index].cardColorValueBlue;
+    progressLineColorValueRed = inProcess[index].progressLineColorValueRed;
+    progressLineColorValueGreen = inProcess[index].progressLineColorValueGreen;
+    progressLineColorValueBlue = inProcess[index].progressLineColorValueBlue;
+    cardImagePath = inProcess[index].cardImagePath;
   }
 
   updateLine() {
     progressLineValue = (personHas / (personNeed / 100)) / 100;
-  }
-
-  edited(int index) {
-    inProcess[index].goal = goal;
-    inProcess[index].personHas = personHas;
-    inProcess[index].personNeed = personNeed;
-    inProcess[index].progressLineValue =
-        (inProcess[index].personHas / (inProcess[index].personNeed / 100)) /
-            100;
-    inProcess[index].progressLineColor = progressLineColor;
-    inProcess[index].cardColor = cardColor;
-    inProcess[index].cardImage = cardImage;
-    unEdited();
   }
 
   unEdited() {
@@ -217,10 +175,7 @@ abstract class CardDataStore with Store {
     personNeed = 0;
     personHas = 0;
     colorIndex = 0;
-    cardColor = Colors.white;
-    progressLineColor = const Color.fromARGB(255, 0, 186, 19);
     progressLineValue = 0;
-    cardImage = null;
     cardColorValueRed = 255;
     cardColorValueGreen = 255;
     cardColorValueBlue = 255;
@@ -238,7 +193,5 @@ abstract class CardDataStore with Store {
     if (returnedImage == null) return;
 
     cardImagePath = returnedImage.path;
-
-    cardImage = File(returnedImage.path);
   }
 }

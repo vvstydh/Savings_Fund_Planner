@@ -21,8 +21,10 @@ class MainApp extends StatelessWidget {
     final GlobalKey<NavigatorState> rootNavigatorKey =
         GlobalKey<NavigatorState>();
     final cardStore = CardData();
-    final cardDataBase = CardDataBase();
-   
+    final cardDataBase = CardDataBase(cardStore: cardStore);
+
+    cardDataBase.fetchCards();
+
     final router = GoRouter(
       navigatorKey: rootNavigatorKey,
       initialLocation: '/',
@@ -56,6 +58,7 @@ class MainApp extends StatelessWidget {
           builder: (context, state) => CardEdit(
             cardStore: cardStore,
             index: state.extra as int,
+            cardDataBase: cardDataBase,
           ),
         ),
         StatefulShellRoute.indexedStack(
@@ -69,6 +72,7 @@ class MainApp extends StatelessWidget {
                     builder: (context, state) => PlannerPage(
                       cardStore: cardStore,
                       rootNavigatorKey: rootNavigatorKey,
+                      cardDataBase: cardDataBase,
                     ),
                   ),
                 ],

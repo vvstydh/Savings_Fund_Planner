@@ -1,15 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
+import 'package:savings_fund_planner/features/planner/data/card_database.dart';
 
 class CardInformation extends StatelessWidget {
   const CardInformation({
     super.key,
     required this.index,
     required this.cardStore,
+    required this.cardDataBase,
   });
   final int index;
   final CardData cardStore;
+  final CardDataBase cardDataBase;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +30,14 @@ class CardInformation extends StatelessWidget {
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              cardStore.inProcess[index].cardImage != null
+              cardStore.inProcess[index].cardImagePath != ''
                   ? SizedBox(
                       width: 300,
                       height: 300,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: Image.file(
-                          cardStore.inProcess[index].cardImage!,
+                          File(cardStore.inProcess[index].cardImagePath),
                           fit: BoxFit.fill,
                         ),
                       ))
@@ -94,7 +99,11 @@ class CardInformation extends StatelessWidget {
                   height: 15,
                   child: LinearProgressIndicator(
                     value: cardStore.inProcess[index].progressLineValue,
-                    color: cardStore.inProcess[index].progressLineColor,
+                    color: Color.fromARGB(
+                        255,
+                        cardStore.inProcess[index].progressLineColorValueRed,
+                        cardStore.inProcess[index].progressLineColorValueGreen,
+                        cardStore.inProcess[index].progressLineColorValueBlue),
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                   )),
               Column(
@@ -176,8 +185,16 @@ class CardInformation extends StatelessWidget {
                                 )),
                             TextButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
-                                  cardStore.addAmount(index, context);
+                                  try {
+                                    Navigator.pop(context);
+                                    cardDataBase.addAmountCard(
+                                        cardStore.inProcess[index], context);
+                                  } on RangeError {
+                                    Navigator.pop(context);
+                                  }
+                                  finally{
+                                    Navigator.pop(context);
+                                  }
                                 },
                                 child: Text(
                                   'Add',
@@ -235,7 +252,8 @@ class CardInformation extends StatelessWidget {
                                 )),
                             TextButton(
                                 onPressed: () {
-                                  cardStore.removeAmount(index);
+                                  cardDataBase.removeAmountCard(
+                                      cardStore.inProcess[index]);
                                   Navigator.pop(context);
                                 },
                                 child: Text(

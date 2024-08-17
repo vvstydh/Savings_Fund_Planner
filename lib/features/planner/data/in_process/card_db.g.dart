@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cardDB.dart';
+part of 'card_db.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator

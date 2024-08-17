@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
+import 'package:savings_fund_planner/features/planner/data/card_database.dart';
 
 class CardEditDelete extends StatelessWidget {
   const CardEditDelete(
-      {super.key, required this.cardStore, required this.index});
+      {super.key,
+      required this.cardStore,
+      required this.index,
+      required this.cardDataBase});
   final CardData cardStore;
   final int index;
+  final CardDataBase cardDataBase;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +75,8 @@ class CardEditDelete extends StatelessWidget {
                                     )),
                                 TextButton(
                                     onPressed: () {
-                                      cardStore.removeFromInprocess(index);
+                                      cardDataBase.deleteCard(
+                                          cardStore.inProcess[index].id);
                                       Navigator.pop(context);
                                     },
                                     child: const Text(

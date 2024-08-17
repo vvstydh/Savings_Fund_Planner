@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
 import 'package:savings_fund_planner/core/widgets/universal_button.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/appbar_for_card_addition.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/widgets/progress_panel.dart';
-import 'package:savings_fund_planner/features/planner/data/cardDB.dart';
+import 'package:savings_fund_planner/features/planner/data/in_process/card_db.dart';
 import 'package:savings_fund_planner/features/planner/data/card_database.dart';
 
 class ImageAddition extends StatelessWidget {
@@ -115,7 +114,7 @@ class ImageAddition extends StatelessWidget {
               UniversalButton(
                   text: 'NEXT',
                   press: () {
-                    cardStore.add();
+                    cardStore.createprogresslinevalue();
                     cardDataBase.addCard(CardDB(
                       goal: cardStore.goal,
                       personHas: cardStore.personHas,
@@ -132,8 +131,6 @@ class ImageAddition extends StatelessWidget {
                       progressLineValue: cardStore.progressLineValue,
                       cardImagePath: cardStore.cardImagePath,
                     ));
-                    cardDataBase.fetchCards();
-                    cardStore.unEdited();
                     context.go(
                       '/',
                     );

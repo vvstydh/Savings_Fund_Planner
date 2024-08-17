@@ -3,14 +3,18 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/features/planner/data/card_database.dart';
-import 'package:savings_fund_planner/features/planner/presentation/widgets/card_list_inprocess_item.dart';
 import 'package:savings_fund_planner/core/widgets/universal_button.dart';
+import 'package:savings_fund_planner/features/planner/presentation/widgets/card_list_inprocess_item.dart';
 
 class InprocessCardList extends StatelessWidget {
   const InprocessCardList(
-      {super.key, required this.cardStore, required this.rootNavigatorKey});
+      {super.key,
+      required this.cardStore,
+      required this.rootNavigatorKey,
+      required this.cardDataBase});
   final CardData cardStore;
   final GlobalKey<NavigatorState> rootNavigatorKey;
+  final CardDataBase cardDataBase;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +27,14 @@ class InprocessCardList extends StatelessWidget {
             Expanded(
                 child: Observer(
                     builder: (_) => ListView.builder(
-                        itemCount: CardDataBase().currentCards.length,
+                        itemCount: cardStore.inProcess.length,
                         itemBuilder: (context, index) {
-                          return Text(CardDataBase().currentCards[index].goal);
+                          return CardListInprocessItem(
+                            index: index,
+                            cardStore: cardStore,
+                            rootNavigatorKey: rootNavigatorKey,
+                            cardDataBase: cardDataBase,
+                          );
                         }))),
           ],
         ),
