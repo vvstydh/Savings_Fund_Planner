@@ -150,7 +150,7 @@ class CardEdit extends StatelessWidget {
               keyboardType: TextInputType.number,
               onChanged: (need) {
                 cardStore.personNeed = double.parse(need);
-                cardStore.updateLine();
+                cardStore.createprogresslinevalue();
               },
               cursorColor: Colors.black,
               minLines: 1,
@@ -178,7 +178,7 @@ class CardEdit extends StatelessWidget {
               keyboardType: TextInputType.number,
               onChanged: (has) {
                 cardStore.personHas = double.parse(has);
-                cardStore.updateLine();
+                cardStore.createprogresslinevalue();
               },
               cursorColor: Colors.black,
               minLines: 1,

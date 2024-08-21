@@ -57,6 +57,9 @@ abstract class CardDataStore with Store {
   @observable
   ObservableList<CardDbCompleted> completed = ObservableList<CardDbCompleted>();
 
+  @observable
+  ObservableList<AddHistory> additionHistory = ObservableList<AddHistory>();
+
   @action
   createprogresslinevalue() {
     progressLineValue = (personHas / (personNeed / 100)) / 100;
@@ -65,29 +68,6 @@ abstract class CardDataStore with Store {
   @action
   switchbutton() {
     inProcessCompletedSwitch = !inProcessCompletedSwitch;
-  }
-
-  @action
-  add() {
-    progressLineValue = (personHas / (personNeed / 100)) / 100;
-    inProcess.add(CardDB(
-      goal: goal,
-      personHas: personHas,
-      personNeed: personNeed,
-      cardColorValueRed: cardColorValueRed,
-      cardColorValueGreen: cardColorValueGreen,
-      cardColorValueBlue: cardColorValueBlue,
-      progressLineColorValueRed: progressLineColorValueRed,
-      progressLineColorValueGreen: progressLineColorValueGreen,
-      progressLineColorValueBlue: progressLineColorValueBlue,
-      progressLineValue: progressLineValue,
-      cardImagePath: cardImagePath,
-    ));
-  }
-
-  @action
-  removeFromCompleted(int index) {
-    inProcess.removeAt(index);
   }
 
   @action
@@ -166,10 +146,6 @@ abstract class CardDataStore with Store {
     cardImagePath = inProcess[index].cardImagePath;
   }
 
-  updateLine() {
-    progressLineValue = (personHas / (personNeed / 100)) / 100;
-  }
-
   unEdited() {
     goal = '';
     personNeed = 0;
@@ -183,6 +159,7 @@ abstract class CardDataStore with Store {
     progressLineColorValueGreen = 186;
     progressLineColorValueBlue = 19;
     cardImagePath = '';
+    additionHistory.clear();
   }
 
   @action

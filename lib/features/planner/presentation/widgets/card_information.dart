@@ -1,9 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/features/planner/data/card_database.dart';
+import 'package:savings_fund_planner/features/planner/data/in_process/card_db.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class CardInformation extends StatelessWidget {
   const CardInformation({
@@ -18,13 +22,16 @@ class CardInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<AddHistory> data =
+        cardStore.inProcess[index].additionHistory.reversed.toList();
+
     return Container(
       decoration: BoxDecoration(
           color: theme.colorScheme.primary,
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(30), topRight: Radius.circular(30))),
       padding: const EdgeInsets.only(left: 30, right: 30),
-      child: ListView(children: [
+      child: ListView(shrinkWrap: true, children: [
         Container(
           margin: const EdgeInsets.only(top: 30),
           child: Stack(
@@ -185,16 +192,10 @@ class CardInformation extends StatelessWidget {
                                 )),
                             TextButton(
                                 onPressed: () {
-                                  try {
-                                    Navigator.pop(context);
-                                    cardDataBase.addAmountCard(
-                                        cardStore.inProcess[index], context);
-                                  } on RangeError {
-                                    Navigator.pop(context);
-                                  }
-                                  finally{
-                                    Navigator.pop(context);
-                                  }
+                                  cardDataBase.addAmountCard(
+                                      cardStore.inProcess[index], context);
+
+                                  Navigator.pop(context);
                                 },
                                 child: Text(
                                   'Add',
@@ -277,19 +278,80 @@ class CardInformation extends StatelessWidget {
           height: 300,
           width: 300,
           margin: const EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30), color: Colors.black54),
+          child: SfCartesianChart(
+            primaryXAxis: DateTimeAxis(
+                minimum: DateTime(DateTime.now().month - 2),
+                maximum:DateTime.now(),
+                intervalType: DateTimeIntervalType.days,
+                dateFormat: DateFormat.MMMM(),
+                ),
+            primaryYAxis: NumericAxis(
+                minimum: 0,
+                maximum: cardStore.inProcess[index].personNeed,
+                isVisible: false),
+            series: <ChartSeries<AddHistory, DateTime>>[
+              SplineAreaSeries(
+                  dataSource: data,
+                  xValueMapper: (AddHistory data, _) => data.date,
+                  yValueMapper: (AddHistory data, _) => data.ammount)
+            ],
+          ),
         ),
         Center(
             child: Text(
           'Savings history',
           style: theme.textTheme.labelLarge,
         )),
-        Center(
-            child: Text(
-          'You haven\'t added or removed any savings yet',
-          style: theme.textTheme.labelSmall,
-        )),
+        cardStore.inProcess[index].additionHistory.isEmpty
+            ? Center(
+                child: Text(
+                'You haven\'t added or removed any savings yet',
+                style: theme.textTheme.labelSmall,
+              ))
+            : Column(
+                children: List.generate(
+                  cardStore.inProcess[index].additionHistory.length,
+                  (ind) {
+                    // Создаем реверсированный список
+                    var reversedHistory = cardStore
+                        .inProcess[index].additionHistory.reversed
+                        .toList();
+
+                    return Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            width: 1,
+                            color: Color.fromARGB(102, 102, 102, 102),
+                          ),
+                        ),
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          DateFormat('MMMM d')
+                              .format(reversedHistory[ind].date),
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 102, 102, 102),
+                          ),
+                        ),
+                        trailing: reversedHistory[ind].char == '+'
+                            ? Text(
+                                ('+${reversedHistory[ind].ammount}\$'),
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 0, 186, 19),
+                                ),
+                              )
+                            : Text(
+                                ('-${reversedHistory[ind].ammount}\$'),
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 255, 64, 64),
+                                ),
+                              ),
+                      ),
+                    );
+                  },
+                ),
+              ),
         const SizedBox(
           height: 30,
         )

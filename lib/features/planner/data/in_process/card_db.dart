@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:isar/isar.dart';
 
 part 'card_db.g.dart';
@@ -15,7 +17,8 @@ class CardDB {
       required this.progressLineColorValueGreen,
       required this.progressLineColorValueBlue,
       required this.progressLineValue,
-      required this.cardImagePath});
+      required this.cardImagePath,
+      required this.additionHistory});
 
   Id id = Isar.autoIncrement;
 
@@ -30,4 +33,14 @@ class CardDB {
   int progressLineColorValueBlue;
   double progressLineValue;
   String cardImagePath;
+  List<AddHistory> additionHistory = [];
+}
+
+@embedded
+class AddHistory {
+  AddHistory();
+
+  DateTime date = DateTime.now();
+  double ammount = 0;
+  String char = '';
 }

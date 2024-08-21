@@ -268,6 +268,22 @@ mixin _$CardData on CardDataStore, Store {
     });
   }
 
+  late final _$additionHistoryAtom =
+      Atom(name: 'CardDataStore.additionHistory', context: context);
+
+  @override
+  ObservableList<AddHistory> get additionHistory {
+    _$additionHistoryAtom.reportRead();
+    return super.additionHistory;
+  }
+
+  @override
+  set additionHistory(ObservableList<AddHistory> value) {
+    _$additionHistoryAtom.reportWrite(value, super.additionHistory, () {
+      super.additionHistory = value;
+    });
+  }
+
   late final _$pickImageAsyncAction =
       AsyncAction('CardDataStore.pickImage', context: context);
 
@@ -302,28 +318,6 @@ mixin _$CardData on CardDataStore, Store {
   }
 
   @override
-  dynamic add() {
-    final _$actionInfo =
-        _$CardDataStoreActionController.startAction(name: 'CardDataStore.add');
-    try {
-      return super.add();
-    } finally {
-      _$CardDataStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic removeFromCompleted(int index) {
-    final _$actionInfo = _$CardDataStoreActionController.startAction(
-        name: 'CardDataStore.removeFromCompleted');
-    try {
-      return super.removeFromCompleted(index);
-    } finally {
-      _$CardDataStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic changeColor(int index) {
     final _$actionInfo = _$CardDataStoreActionController.startAction(
         name: 'CardDataStore.changeColor');
@@ -352,7 +346,8 @@ progressLineColorValueBlue: ${progressLineColorValueBlue},
 cardImagePath: ${cardImagePath},
 inProcessCompletedSwitch: ${inProcessCompletedSwitch},
 inProcess: ${inProcess},
-completed: ${completed}
+completed: ${completed},
+additionHistory: ${additionHistory}
     ''';
   }
 }

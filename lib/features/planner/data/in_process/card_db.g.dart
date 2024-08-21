@@ -17,58 +17,64 @@ const CardDBSchema = CollectionSchema(
   name: r'CardDB',
   id: 228102962991858224,
   properties: {
-    r'cardColorValueBlue': PropertySchema(
+    r'additionHistory': PropertySchema(
       id: 0,
+      name: r'additionHistory',
+      type: IsarType.objectList,
+      target: r'AddHistory',
+    ),
+    r'cardColorValueBlue': PropertySchema(
+      id: 1,
       name: r'cardColorValueBlue',
       type: IsarType.long,
     ),
     r'cardColorValueGreen': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'cardColorValueGreen',
       type: IsarType.long,
     ),
     r'cardColorValueRed': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'cardColorValueRed',
       type: IsarType.long,
     ),
     r'cardImagePath': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'cardImagePath',
       type: IsarType.string,
     ),
     r'goal': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'goal',
       type: IsarType.string,
     ),
     r'personHas': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'personHas',
       type: IsarType.double,
     ),
     r'personNeed': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'personNeed',
       type: IsarType.double,
     ),
     r'progressLineColorValueBlue': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'progressLineColorValueBlue',
       type: IsarType.long,
     ),
     r'progressLineColorValueGreen': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'progressLineColorValueGreen',
       type: IsarType.long,
     ),
     r'progressLineColorValueRed': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'progressLineColorValueRed',
       type: IsarType.long,
     ),
     r'progressLineValue': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'progressLineValue',
       type: IsarType.double,
     )
@@ -80,7 +86,7 @@ const CardDBSchema = CollectionSchema(
   idName: r'id',
   indexes: {},
   links: {},
-  embeddedSchemas: {},
+  embeddedSchemas: {r'AddHistory': AddHistorySchema},
   getId: _cardDBGetId,
   getLinks: _cardDBGetLinks,
   attach: _cardDBAttach,
@@ -93,6 +99,14 @@ int _cardDBEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.additionHistory.length * 3;
+  {
+    final offsets = allOffsets[AddHistory]!;
+    for (var i = 0; i < object.additionHistory.length; i++) {
+      final value = object.additionHistory[i];
+      bytesCount += AddHistorySchema.estimateSize(value, offsets, allOffsets);
+    }
+  }
   bytesCount += 3 + object.cardImagePath.length * 3;
   bytesCount += 3 + object.goal.length * 3;
   return bytesCount;
@@ -104,17 +118,23 @@ void _cardDBSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.cardColorValueBlue);
-  writer.writeLong(offsets[1], object.cardColorValueGreen);
-  writer.writeLong(offsets[2], object.cardColorValueRed);
-  writer.writeString(offsets[3], object.cardImagePath);
-  writer.writeString(offsets[4], object.goal);
-  writer.writeDouble(offsets[5], object.personHas);
-  writer.writeDouble(offsets[6], object.personNeed);
-  writer.writeLong(offsets[7], object.progressLineColorValueBlue);
-  writer.writeLong(offsets[8], object.progressLineColorValueGreen);
-  writer.writeLong(offsets[9], object.progressLineColorValueRed);
-  writer.writeDouble(offsets[10], object.progressLineValue);
+  writer.writeObjectList<AddHistory>(
+    offsets[0],
+    allOffsets,
+    AddHistorySchema.serialize,
+    object.additionHistory,
+  );
+  writer.writeLong(offsets[1], object.cardColorValueBlue);
+  writer.writeLong(offsets[2], object.cardColorValueGreen);
+  writer.writeLong(offsets[3], object.cardColorValueRed);
+  writer.writeString(offsets[4], object.cardImagePath);
+  writer.writeString(offsets[5], object.goal);
+  writer.writeDouble(offsets[6], object.personHas);
+  writer.writeDouble(offsets[7], object.personNeed);
+  writer.writeLong(offsets[8], object.progressLineColorValueBlue);
+  writer.writeLong(offsets[9], object.progressLineColorValueGreen);
+  writer.writeLong(offsets[10], object.progressLineColorValueRed);
+  writer.writeDouble(offsets[11], object.progressLineValue);
 }
 
 CardDB _cardDBDeserialize(
@@ -124,17 +144,24 @@ CardDB _cardDBDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = CardDB(
-    cardColorValueBlue: reader.readLong(offsets[0]),
-    cardColorValueGreen: reader.readLong(offsets[1]),
-    cardColorValueRed: reader.readLong(offsets[2]),
-    cardImagePath: reader.readString(offsets[3]),
-    goal: reader.readString(offsets[4]),
-    personHas: reader.readDouble(offsets[5]),
-    personNeed: reader.readDouble(offsets[6]),
-    progressLineColorValueBlue: reader.readLong(offsets[7]),
-    progressLineColorValueGreen: reader.readLong(offsets[8]),
-    progressLineColorValueRed: reader.readLong(offsets[9]),
-    progressLineValue: reader.readDouble(offsets[10]),
+    additionHistory: reader.readObjectList<AddHistory>(
+          offsets[0],
+          AddHistorySchema.deserialize,
+          allOffsets,
+          AddHistory(),
+        ) ??
+        [],
+    cardColorValueBlue: reader.readLong(offsets[1]),
+    cardColorValueGreen: reader.readLong(offsets[2]),
+    cardColorValueRed: reader.readLong(offsets[3]),
+    cardImagePath: reader.readString(offsets[4]),
+    goal: reader.readString(offsets[5]),
+    personHas: reader.readDouble(offsets[6]),
+    personNeed: reader.readDouble(offsets[7]),
+    progressLineColorValueBlue: reader.readLong(offsets[8]),
+    progressLineColorValueGreen: reader.readLong(offsets[9]),
+    progressLineColorValueRed: reader.readLong(offsets[10]),
+    progressLineValue: reader.readDouble(offsets[11]),
   );
   object.id = id;
   return object;
@@ -148,26 +175,34 @@ P _cardDBDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
+      return (reader.readObjectList<AddHistory>(
+            offset,
+            AddHistorySchema.deserialize,
+            allOffsets,
+            AddHistory(),
+          ) ??
+          []) as P;
     case 1:
       return (reader.readLong(offset)) as P;
     case 2:
       return (reader.readLong(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 6:
       return (reader.readDouble(offset)) as P;
     case 7:
-      return (reader.readLong(offset)) as P;
+      return (reader.readDouble(offset)) as P;
     case 8:
       return (reader.readLong(offset)) as P;
     case 9:
       return (reader.readLong(offset)) as P;
     case 10:
+      return (reader.readLong(offset)) as P;
+    case 11:
       return (reader.readDouble(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -262,6 +297,94 @@ extension CardDBQueryWhere on QueryBuilder<CardDB, CardDB, QWhereClause> {
 }
 
 extension CardDBQueryFilter on QueryBuilder<CardDB, CardDB, QFilterCondition> {
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      additionHistoryLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> additionHistoryIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      additionHistoryIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      additionHistoryLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      additionHistoryLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition>
+      additionHistoryLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
   QueryBuilder<CardDB, CardDB, QAfterFilterCondition> cardColorValueBlueEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
@@ -1095,7 +1218,14 @@ extension CardDBQueryFilter on QueryBuilder<CardDB, CardDB, QFilterCondition> {
   }
 }
 
-extension CardDBQueryObject on QueryBuilder<CardDB, CardDB, QFilterCondition> {}
+extension CardDBQueryObject on QueryBuilder<CardDB, CardDB, QFilterCondition> {
+  QueryBuilder<CardDB, CardDB, QAfterFilterCondition> additionHistoryElement(
+      FilterQuery<AddHistory> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.object(q, r'additionHistory');
+    });
+  }
+}
 
 extension CardDBQueryLinks on QueryBuilder<CardDB, CardDB, QFilterCondition> {}
 
@@ -1470,6 +1600,13 @@ extension CardDBQueryProperty on QueryBuilder<CardDB, CardDB, QQueryProperty> {
     });
   }
 
+  QueryBuilder<CardDB, List<AddHistory>, QQueryOperations>
+      additionHistoryProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'additionHistory');
+    });
+  }
+
   QueryBuilder<CardDB, int, QQueryOperations> cardColorValueBlueProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cardColorValueBlue');
@@ -1539,3 +1676,340 @@ extension CardDBQueryProperty on QueryBuilder<CardDB, CardDB, QQueryProperty> {
     });
   }
 }
+
+// **************************************************************************
+// IsarEmbeddedGenerator
+// **************************************************************************
+
+// coverage:ignore-file
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+
+const AddHistorySchema = Schema(
+  name: r'AddHistory',
+  id: 5767412003809865224,
+  properties: {
+    r'ammount': PropertySchema(
+      id: 0,
+      name: r'ammount',
+      type: IsarType.double,
+    ),
+    r'char': PropertySchema(
+      id: 1,
+      name: r'char',
+      type: IsarType.string,
+    ),
+    r'date': PropertySchema(
+      id: 2,
+      name: r'date',
+      type: IsarType.dateTime,
+    )
+  },
+  estimateSize: _addHistoryEstimateSize,
+  serialize: _addHistorySerialize,
+  deserialize: _addHistoryDeserialize,
+  deserializeProp: _addHistoryDeserializeProp,
+);
+
+int _addHistoryEstimateSize(
+  AddHistory object,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  var bytesCount = offsets.last;
+  bytesCount += 3 + object.char.length * 3;
+  return bytesCount;
+}
+
+void _addHistorySerialize(
+  AddHistory object,
+  IsarWriter writer,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  writer.writeDouble(offsets[0], object.ammount);
+  writer.writeString(offsets[1], object.char);
+  writer.writeDateTime(offsets[2], object.date);
+}
+
+AddHistory _addHistoryDeserialize(
+  Id id,
+  IsarReader reader,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  final object = AddHistory();
+  object.ammount = reader.readDouble(offsets[0]);
+  object.char = reader.readString(offsets[1]);
+  object.date = reader.readDateTime(offsets[2]);
+  return object;
+}
+
+P _addHistoryDeserializeProp<P>(
+  IsarReader reader,
+  int propertyId,
+  int offset,
+  Map<Type, List<int>> allOffsets,
+) {
+  switch (propertyId) {
+    case 0:
+      return (reader.readDouble(offset)) as P;
+    case 1:
+      return (reader.readString(offset)) as P;
+    case 2:
+      return (reader.readDateTime(offset)) as P;
+    default:
+      throw IsarError('Unknown property with id $propertyId');
+  }
+}
+
+extension AddHistoryQueryFilter
+    on QueryBuilder<AddHistory, AddHistory, QFilterCondition> {
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> ammountEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'ammount',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition>
+      ammountGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'ammount',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> ammountLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'ammount',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> ammountBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'ammount',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> charEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'char',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> charGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'char',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> charLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'char',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> charBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'char',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> charStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'char',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> charEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'char',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> charContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'char',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> charMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'char',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> charIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'char',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> charIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'char',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateEqualTo(
+      DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'date',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'date',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'date',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'date',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+}
+
+extension AddHistoryQueryObject
+    on QueryBuilder<AddHistory, AddHistory, QFilterCondition> {}

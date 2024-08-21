@@ -130,6 +130,7 @@ class ImageAddition extends StatelessWidget {
                           cardStore.progressLineColorValueBlue,
                       progressLineValue: cardStore.progressLineValue,
                       cardImagePath: cardStore.cardImagePath,
+                      additionHistory: cardStore.additionHistory
                     ));
                     context.go(
                       '/',

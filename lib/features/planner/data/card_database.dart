@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:mobx/mobx.dart';
 import 'package:path_provider/path_provider.dart';
@@ -34,6 +35,13 @@ class CardDataBase {
     final existingCard = await isar.cardDBs.get(card.id);
     if (existingCard != null) {
       existingCard.personHas += cardStore.cardAddAmount;
+      existingCard.additionHistory = [
+        ...existingCard.additionHistory,
+        AddHistory()
+          ..date = DateTime.now()
+            ..ammount = cardStore.cardAddAmount
+            ..char = '+'
+      ];
       existingCard.progressLineValue =
           (existingCard.personHas / (existingCard.personNeed / 100)) / 100;
 
@@ -63,10 +71,20 @@ class CardDataBase {
   Future<void> removeAmountCard(CardDB card) async {
     final existingCard = await isar.cardDBs.get(card.id);
     if (existingCard != null) {
-      existingCard.personHas -= cardStore.cardAddAmount;
-      existingCard.progressLineValue =
-          (existingCard.personHas / (existingCard.personNeed / 100)) / 100;
-      await isar.writeTxn(() => isar.cardDBs.put(existingCard));
+      if (cardStore.cardAddAmount <= existingCard.personHas) {
+        existingCard.personHas -= cardStore.cardAddAmount;
+
+        existingCard.additionHistory = [
+          ...existingCard.additionHistory,
+          AddHistory()
+            ..date = DateTime.now()
+            ..ammount = cardStore.cardAddAmount
+            ..char = '-'
+        ];
+        existingCard.progressLineValue =
+            (existingCard.personHas / (existingCard.personNeed / 100)) / 100;
+        await isar.writeTxn(() => isar.cardDBs.put(existingCard));
+      }
     }
     fetchCards();
     cardStore.cardAddAmount = 0;
