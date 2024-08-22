@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/theme/theme.dart';
 import 'package:savings_fund_planner/features/planner/data/card_database.dart';
-import 'package:savings_fund_planner/features/planner/data/completed/card_db_completed.dart';
 import 'package:savings_fund_planner/features/planner/data/in_process/card_db.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
