@@ -1,4 +1,5 @@
 import 'package:isar/isar.dart';
+import 'package:savings_fund_planner/features/planner/data/in_process/card_db.dart';
 
 part 'card_db_completed.g.dart';
 
@@ -15,7 +16,8 @@ class CardDbCompleted {
       required this.progressLineColorValueGreen,
       required this.progressLineColorValueBlue,
       required this.progressLineValue,
-      required this.cardImagePath});
+      required this.cardImagePath,
+      required this.additionHistory});
 
   Id id = Isar.autoIncrement;
 
@@ -30,4 +32,5 @@ class CardDbCompleted {
   int progressLineColorValueBlue;
   double progressLineValue;
   String cardImagePath;
+  List<AddHistory> additionHistory = [];
 }

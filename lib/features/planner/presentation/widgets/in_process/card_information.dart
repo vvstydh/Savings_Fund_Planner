@@ -22,8 +22,7 @@ class CardInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<AddHistory> data =
-        cardStore.inProcess[index].additionHistory.reversed.toList();
+    List<AddHistory> data = cardStore.inProcess[index].additionHistory;
 
     return Container(
       decoration: BoxDecoration(
@@ -194,7 +193,6 @@ class CardInformation extends StatelessWidget {
                                 onPressed: () {
                                   cardDataBase.addAmountCard(
                                       cardStore.inProcess[index], context);
-
                                   Navigator.pop(context);
                                 },
                                 child: Text(
@@ -278,22 +276,33 @@ class CardInformation extends StatelessWidget {
           height: 300,
           width: 300,
           margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.only(right: 20),
           child: SfCartesianChart(
-            primaryXAxis: DateTimeAxis(
-                minimum: DateTime(DateTime.now().month - 2),
-                maximum:DateTime.now(),
-                intervalType: DateTimeIntervalType.days,
-                dateFormat: DateFormat.MMMM(),
+            primaryXAxis: CategoryAxis(
+                labelPlacement: LabelPlacement.onTicks,
+                labelStyle: const TextStyle(color: Colors.black),
+                axisLine: const AxisLine(
+                  color: Colors.red,
                 ),
+                interval: 5),
             primaryYAxis: NumericAxis(
-                minimum: 0,
-                maximum: cardStore.inProcess[index].personNeed,
-                isVisible: false),
-            series: <ChartSeries<AddHistory, DateTime>>[
-              SplineAreaSeries(
-                  dataSource: data,
-                  xValueMapper: (AddHistory data, _) => data.date,
-                  yValueMapper: (AddHistory data, _) => data.ammount)
+              minimum: 0,
+              maximum: cardStore.inProcess[index].personNeed,
+              interval: cardStore.inProcess[index].personNeed,
+              labelStyle: const TextStyle(color: Colors.green),
+              axisLine: const AxisLine(color: Colors.transparent),
+              majorGridLines: const MajorGridLines(width: 0),
+            ),
+            plotAreaBorderColor: Colors.transparent,
+            series: <LineSeries<AddHistory, String>>[
+              LineSeries<AddHistory, String>(
+                dataSource: data,
+                xValueMapper: (AddHistory dat, _) => dat.date,
+                yValueMapper: (AddHistory dat, _) => dat.additionAmountHistory,
+                markerSettings: const MarkerSettings(isVisible: true),
+                color: Colors.blue,
+                width: 2,
+              )
             ],
           ),
         ),
@@ -312,11 +321,7 @@ class CardInformation extends StatelessWidget {
                 children: List.generate(
                   cardStore.inProcess[index].additionHistory.length,
                   (ind) {
-                    // Создаем реверсированный список
-                    var reversedHistory = cardStore
-                        .inProcess[index].additionHistory.reversed
-                        .toList();
-
+                    var reversedHistory = data.reversed.toList();
                     return Container(
                       decoration: const BoxDecoration(
                         border: Border(
@@ -328,21 +333,20 @@ class CardInformation extends StatelessWidget {
                       ),
                       child: ListTile(
                         title: Text(
-                          DateFormat('MMMM d')
-                              .format(reversedHistory[ind].date),
+                          reversedHistory[ind].date,
                           style: const TextStyle(
                             color: Color.fromARGB(255, 102, 102, 102),
                           ),
                         ),
                         trailing: reversedHistory[ind].char == '+'
                             ? Text(
-                                ('+${reversedHistory[ind].ammount}\$'),
+                                ('+${reversedHistory[ind].amount}\$'),
                                 style: const TextStyle(
                                   color: Color.fromARGB(255, 0, 186, 19),
                                 ),
                               )
                             : Text(
-                                ('-${reversedHistory[ind].ammount}\$'),
+                                ('-${reversedHistory[ind].amount}\$'),
                                 style: const TextStyle(
                                   color: Color.fromARGB(255, 255, 64, 64),
                                 ),

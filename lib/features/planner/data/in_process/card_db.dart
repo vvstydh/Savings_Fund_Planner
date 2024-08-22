@@ -40,7 +40,8 @@ class CardDB {
 class AddHistory {
   AddHistory();
 
-  DateTime date = DateTime.now();
-  double ammount = 0;
+  String date = '';
+  double amount = 0;
   String char = '';
+  double additionAmountHistory = 0;
 }

@@ -3,7 +3,7 @@ import 'package:savings_fund_planner/core/app/store/card_data/card_data.dart';
 import 'package:savings_fund_planner/core/widgets/planner_card_widget.dart';
 import 'package:savings_fund_planner/features/planner/data/card_database.dart';
 import 'package:savings_fund_planner/features/planner/presentation/widgets/card_edit_delete.dart';
-import 'package:savings_fund_planner/features/planner/presentation/widgets/card_information.dart';
+import 'package:savings_fund_planner/features/planner/presentation/widgets/in_process/card_information.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CardListInprocessItem extends StatelessWidget {

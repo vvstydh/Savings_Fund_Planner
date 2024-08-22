@@ -1688,20 +1688,25 @@ const AddHistorySchema = Schema(
   name: r'AddHistory',
   id: 5767412003809865224,
   properties: {
-    r'ammount': PropertySchema(
+    r'additionAmountHistory': PropertySchema(
       id: 0,
-      name: r'ammount',
+      name: r'additionAmountHistory',
+      type: IsarType.double,
+    ),
+    r'amount': PropertySchema(
+      id: 1,
+      name: r'amount',
       type: IsarType.double,
     ),
     r'char': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'char',
       type: IsarType.string,
     ),
     r'date': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'date',
-      type: IsarType.dateTime,
+      type: IsarType.string,
     )
   },
   estimateSize: _addHistoryEstimateSize,
@@ -1717,6 +1722,7 @@ int _addHistoryEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.char.length * 3;
+  bytesCount += 3 + object.date.length * 3;
   return bytesCount;
 }
 
@@ -1726,9 +1732,10 @@ void _addHistorySerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDouble(offsets[0], object.ammount);
-  writer.writeString(offsets[1], object.char);
-  writer.writeDateTime(offsets[2], object.date);
+  writer.writeDouble(offsets[0], object.additionAmountHistory);
+  writer.writeDouble(offsets[1], object.amount);
+  writer.writeString(offsets[2], object.char);
+  writer.writeString(offsets[3], object.date);
 }
 
 AddHistory _addHistoryDeserialize(
@@ -1738,9 +1745,10 @@ AddHistory _addHistoryDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = AddHistory();
-  object.ammount = reader.readDouble(offsets[0]);
-  object.char = reader.readString(offsets[1]);
-  object.date = reader.readDateTime(offsets[2]);
+  object.additionAmountHistory = reader.readDouble(offsets[0]);
+  object.amount = reader.readDouble(offsets[1]);
+  object.char = reader.readString(offsets[2]);
+  object.date = reader.readString(offsets[3]);
   return object;
 }
 
@@ -1754,9 +1762,11 @@ P _addHistoryDeserializeProp<P>(
     case 0:
       return (reader.readDouble(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readDouble(offset)) as P;
     case 2:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readString(offset)) as P;
+    case 3:
+      return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -1764,13 +1774,14 @@ P _addHistoryDeserializeProp<P>(
 
 extension AddHistoryQueryFilter
     on QueryBuilder<AddHistory, AddHistory, QFilterCondition> {
-  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> ammountEqualTo(
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition>
+      additionAmountHistoryEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'ammount',
+        property: r'additionAmountHistory',
         value: value,
         epsilon: epsilon,
       ));
@@ -1778,7 +1789,7 @@ extension AddHistoryQueryFilter
   }
 
   QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition>
-      ammountGreaterThan(
+      additionAmountHistoryGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1786,14 +1797,15 @@ extension AddHistoryQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'ammount',
+        property: r'additionAmountHistory',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> ammountLessThan(
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition>
+      additionAmountHistoryLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1801,14 +1813,15 @@ extension AddHistoryQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'ammount',
+        property: r'additionAmountHistory',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> ammountBetween(
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition>
+      additionAmountHistoryBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -1817,7 +1830,69 @@ extension AddHistoryQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'ammount',
+        property: r'additionAmountHistory',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> amountEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'amount',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> amountGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'amount',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> amountLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'amount',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> amountBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'amount',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1958,46 +2033,54 @@ extension AddHistoryQueryFilter
   }
 
   QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateEqualTo(
-      DateTime value) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'date',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateGreaterThan(
-    DateTime value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'date',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateLessThan(
-    DateTime value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'date',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateBetween(
-    DateTime lower,
-    DateTime upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -2006,6 +2089,75 @@ extension AddHistoryQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'date',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'date',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'date',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'date',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'date',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<AddHistory, AddHistory, QAfterFilterCondition> dateIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'date',
+        value: '',
       ));
     });
   }

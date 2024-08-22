@@ -38,9 +38,10 @@ class CardDataBase {
       existingCard.additionHistory = [
         ...existingCard.additionHistory,
         AddHistory()
-          ..date = DateTime.now()
-            ..ammount = cardStore.cardAddAmount
-            ..char = '+'
+          ..date = DateFormat('MMMM d').format(DateTime.now())
+          ..amount = cardStore.cardAddAmount
+          ..char = '+'
+          ..additionAmountHistory = existingCard.personHas
       ];
       existingCard.progressLineValue =
           (existingCard.personHas / (existingCard.personNeed / 100)) / 100;
@@ -58,8 +59,11 @@ class CardDataBase {
                 existingCard.progressLineColorValueGreen,
             progressLineColorValueBlue: existingCard.progressLineColorValueBlue,
             progressLineValue: existingCard.progressLineValue,
-            cardImagePath: existingCard.cardImagePath));
+            cardImagePath: existingCard.cardImagePath,
+            additionHistory: existingCard.additionHistory));
         deleteCard(existingCard.id);
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
       } else {
         await isar.writeTxn(() => isar.cardDBs.put(existingCard));
       }
@@ -77,9 +81,10 @@ class CardDataBase {
         existingCard.additionHistory = [
           ...existingCard.additionHistory,
           AddHistory()
-            ..date = DateTime.now()
-            ..ammount = cardStore.cardAddAmount
+            ..date = DateFormat('MMMM d').format(DateTime.now())
+            ..amount = cardStore.cardAddAmount
             ..char = '-'
+            ..additionAmountHistory = existingCard.personHas
         ];
         existingCard.progressLineValue =
             (existingCard.personHas / (existingCard.personNeed / 100)) / 100;
@@ -124,6 +129,11 @@ class CardDataBase {
 
   Future<void> deleteCard(int id) async {
     await isar.writeTxn(() => isar.cardDBs.delete(id));
+    fetchCards();
+  }
+
+  Future<void> deleteCompletedCard(int id) async {
+    await isar.writeTxn(() => isar.cardDbCompleteds.delete(id));
     fetchCards();
   }
 }

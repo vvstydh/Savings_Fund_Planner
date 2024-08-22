@@ -17,58 +17,64 @@ const CardDbCompletedSchema = CollectionSchema(
   name: r'CardDbCompleted',
   id: 7826506716969188704,
   properties: {
-    r'cardColorValueBlue': PropertySchema(
+    r'additionHistory': PropertySchema(
       id: 0,
+      name: r'additionHistory',
+      type: IsarType.objectList,
+      target: r'AddHistory',
+    ),
+    r'cardColorValueBlue': PropertySchema(
+      id: 1,
       name: r'cardColorValueBlue',
       type: IsarType.long,
     ),
     r'cardColorValueGreen': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'cardColorValueGreen',
       type: IsarType.long,
     ),
     r'cardColorValueRed': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'cardColorValueRed',
       type: IsarType.long,
     ),
     r'cardImagePath': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'cardImagePath',
       type: IsarType.string,
     ),
     r'goal': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'goal',
       type: IsarType.string,
     ),
     r'personHas': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'personHas',
       type: IsarType.double,
     ),
     r'personNeed': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'personNeed',
       type: IsarType.double,
     ),
     r'progressLineColorValueBlue': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'progressLineColorValueBlue',
       type: IsarType.long,
     ),
     r'progressLineColorValueGreen': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'progressLineColorValueGreen',
       type: IsarType.long,
     ),
     r'progressLineColorValueRed': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'progressLineColorValueRed',
       type: IsarType.long,
     ),
     r'progressLineValue': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'progressLineValue',
       type: IsarType.double,
     )
@@ -80,7 +86,7 @@ const CardDbCompletedSchema = CollectionSchema(
   idName: r'id',
   indexes: {},
   links: {},
-  embeddedSchemas: {},
+  embeddedSchemas: {r'AddHistory': AddHistorySchema},
   getId: _cardDbCompletedGetId,
   getLinks: _cardDbCompletedGetLinks,
   attach: _cardDbCompletedAttach,
@@ -93,6 +99,14 @@ int _cardDbCompletedEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.additionHistory.length * 3;
+  {
+    final offsets = allOffsets[AddHistory]!;
+    for (var i = 0; i < object.additionHistory.length; i++) {
+      final value = object.additionHistory[i];
+      bytesCount += AddHistorySchema.estimateSize(value, offsets, allOffsets);
+    }
+  }
   bytesCount += 3 + object.cardImagePath.length * 3;
   bytesCount += 3 + object.goal.length * 3;
   return bytesCount;
@@ -104,17 +118,23 @@ void _cardDbCompletedSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.cardColorValueBlue);
-  writer.writeLong(offsets[1], object.cardColorValueGreen);
-  writer.writeLong(offsets[2], object.cardColorValueRed);
-  writer.writeString(offsets[3], object.cardImagePath);
-  writer.writeString(offsets[4], object.goal);
-  writer.writeDouble(offsets[5], object.personHas);
-  writer.writeDouble(offsets[6], object.personNeed);
-  writer.writeLong(offsets[7], object.progressLineColorValueBlue);
-  writer.writeLong(offsets[8], object.progressLineColorValueGreen);
-  writer.writeLong(offsets[9], object.progressLineColorValueRed);
-  writer.writeDouble(offsets[10], object.progressLineValue);
+  writer.writeObjectList<AddHistory>(
+    offsets[0],
+    allOffsets,
+    AddHistorySchema.serialize,
+    object.additionHistory,
+  );
+  writer.writeLong(offsets[1], object.cardColorValueBlue);
+  writer.writeLong(offsets[2], object.cardColorValueGreen);
+  writer.writeLong(offsets[3], object.cardColorValueRed);
+  writer.writeString(offsets[4], object.cardImagePath);
+  writer.writeString(offsets[5], object.goal);
+  writer.writeDouble(offsets[6], object.personHas);
+  writer.writeDouble(offsets[7], object.personNeed);
+  writer.writeLong(offsets[8], object.progressLineColorValueBlue);
+  writer.writeLong(offsets[9], object.progressLineColorValueGreen);
+  writer.writeLong(offsets[10], object.progressLineColorValueRed);
+  writer.writeDouble(offsets[11], object.progressLineValue);
 }
 
 CardDbCompleted _cardDbCompletedDeserialize(
@@ -124,17 +144,24 @@ CardDbCompleted _cardDbCompletedDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = CardDbCompleted(
-    cardColorValueBlue: reader.readLong(offsets[0]),
-    cardColorValueGreen: reader.readLong(offsets[1]),
-    cardColorValueRed: reader.readLong(offsets[2]),
-    cardImagePath: reader.readString(offsets[3]),
-    goal: reader.readString(offsets[4]),
-    personHas: reader.readDouble(offsets[5]),
-    personNeed: reader.readDouble(offsets[6]),
-    progressLineColorValueBlue: reader.readLong(offsets[7]),
-    progressLineColorValueGreen: reader.readLong(offsets[8]),
-    progressLineColorValueRed: reader.readLong(offsets[9]),
-    progressLineValue: reader.readDouble(offsets[10]),
+    additionHistory: reader.readObjectList<AddHistory>(
+          offsets[0],
+          AddHistorySchema.deserialize,
+          allOffsets,
+          AddHistory(),
+        ) ??
+        [],
+    cardColorValueBlue: reader.readLong(offsets[1]),
+    cardColorValueGreen: reader.readLong(offsets[2]),
+    cardColorValueRed: reader.readLong(offsets[3]),
+    cardImagePath: reader.readString(offsets[4]),
+    goal: reader.readString(offsets[5]),
+    personHas: reader.readDouble(offsets[6]),
+    personNeed: reader.readDouble(offsets[7]),
+    progressLineColorValueBlue: reader.readLong(offsets[8]),
+    progressLineColorValueGreen: reader.readLong(offsets[9]),
+    progressLineColorValueRed: reader.readLong(offsets[10]),
+    progressLineValue: reader.readDouble(offsets[11]),
   );
   object.id = id;
   return object;
@@ -148,26 +175,34 @@ P _cardDbCompletedDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
+      return (reader.readObjectList<AddHistory>(
+            offset,
+            AddHistorySchema.deserialize,
+            allOffsets,
+            AddHistory(),
+          ) ??
+          []) as P;
     case 1:
       return (reader.readLong(offset)) as P;
     case 2:
       return (reader.readLong(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 6:
       return (reader.readDouble(offset)) as P;
     case 7:
-      return (reader.readLong(offset)) as P;
+      return (reader.readDouble(offset)) as P;
     case 8:
       return (reader.readLong(offset)) as P;
     case 9:
       return (reader.readLong(offset)) as P;
     case 10:
+      return (reader.readLong(offset)) as P;
+    case 11:
       return (reader.readDouble(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -269,6 +304,95 @@ extension CardDbCompletedQueryWhere
 
 extension CardDbCompletedQueryFilter
     on QueryBuilder<CardDbCompleted, CardDbCompleted, QFilterCondition> {
+  QueryBuilder<CardDbCompleted, CardDbCompleted, QAfterFilterCondition>
+      additionHistoryLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<CardDbCompleted, CardDbCompleted, QAfterFilterCondition>
+      additionHistoryIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<CardDbCompleted, CardDbCompleted, QAfterFilterCondition>
+      additionHistoryIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<CardDbCompleted, CardDbCompleted, QAfterFilterCondition>
+      additionHistoryLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<CardDbCompleted, CardDbCompleted, QAfterFilterCondition>
+      additionHistoryLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<CardDbCompleted, CardDbCompleted, QAfterFilterCondition>
+      additionHistoryLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'additionHistory',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
   QueryBuilder<CardDbCompleted, CardDbCompleted, QAfterFilterCondition>
       cardColorValueBlueEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
@@ -1133,7 +1257,14 @@ extension CardDbCompletedQueryFilter
 }
 
 extension CardDbCompletedQueryObject
-    on QueryBuilder<CardDbCompleted, CardDbCompleted, QFilterCondition> {}
+    on QueryBuilder<CardDbCompleted, CardDbCompleted, QFilterCondition> {
+  QueryBuilder<CardDbCompleted, CardDbCompleted, QAfterFilterCondition>
+      additionHistoryElement(FilterQuery<AddHistory> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.object(q, r'additionHistory');
+    });
+  }
+}
 
 extension CardDbCompletedQueryLinks
     on QueryBuilder<CardDbCompleted, CardDbCompleted, QFilterCondition> {}
@@ -1548,6 +1679,13 @@ extension CardDbCompletedQueryProperty
   QueryBuilder<CardDbCompleted, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<CardDbCompleted, List<AddHistory>, QQueryOperations>
+      additionHistoryProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'additionHistory');
     });
   }
 
