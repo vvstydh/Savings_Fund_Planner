@@ -69,7 +69,7 @@ class Onboarding extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 60),
+            padding: const EdgeInsets.only(bottom: 60),
             child: SmoothPageIndicator(
               controller: controller,
               count: contents.length,
