@@ -21,6 +21,9 @@ dependencies:
   provider: ^6.1.2
   intl: ^0.19.0
   syncfusion_flutter_charts: ^20.2.39
+  smooth_page_indicator: ^1.2.0+3
+  permission_handler: ^11.3.1
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +42,11 @@ flutter:
     - assets/images/list_is_empty.png
     - assets/icon.png
     - assets/images/noPhoto.png
+    - assets/images/onboarding/onboarding1.png
+    - assets/images/onboarding/onboarding2.png
+    - assets/images/onboarding/onboarding3.png
+    - assets/images/onboarding/onboarding4.png
+    - assets/images/onboarding/onboarding5.png
 
 flutter_launcher_icons:
   android:

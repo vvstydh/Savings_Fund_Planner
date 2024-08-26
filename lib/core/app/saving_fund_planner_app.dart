@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:savings_fund_planner/core/app/store/pages/onboarding.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/goal_addition.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/image_addition.dart';
 import 'package:savings_fund_planner/features/card_addition.dart/presentation/pages/savings_addition.dart';
@@ -12,9 +13,12 @@ import 'package:savings_fund_planner/features/planner/presentation/pages/card_ed
 import 'package:savings_fund_planner/features/planner/presentation/pages/planner_page.dart';
 import 'package:savings_fund_planner/features/settings/presentation/pages/settings.dart';
 import 'package:savings_fund_planner/core/app/root_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  const MainApp({super.key, required this.onboardingCompleted});
+
+  final bool onboardingCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +31,17 @@ class MainApp extends StatelessWidget {
 
     final router = GoRouter(
       navigatorKey: rootNavigatorKey,
-      initialLocation: '/',
+      initialLocation: onboardingCompleted ? '/' : '/onboarding',
       routes: [
+        GoRoute(
+          path: '/onboarding',
+          builder: (context, state) =>
+              Onboarding(onboardingCompleted: () async {
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setBool('onboarding_completed', true);
+            
+          }),
+        ),
         GoRoute(
           path: '/cardAdditionGoal',
           builder: (context, state) =>
